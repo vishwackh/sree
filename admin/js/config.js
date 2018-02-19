@@ -17,21 +17,26 @@
                     templateUrl: 'views/dashbord/dashbord.html',
                     controller: 'dashbordCtrl'
                 })
-                .state('dashbord.categories', {
+                .state('dashbord.inquiry', {
                     url: '/specialPackages',
-                    templateUrl: 'views/categories/categories.html',
-                    controller: 'categoriesCtrl'
+                    templateUrl: 'views/inquiry/inquiry.html',
+                    controller: 'inquiryCtrl'
                 })                
-                .state('dashbord.packages', {
-                    url: '/packages',
-                    templateUrl: 'views/video/video.html',
-                    controller: 'videoCtrl'
+                .state('dashbord.BookingDetails', {
+                    url: '/BookingDetails',
+                    templateUrl: 'views/bookingDetails/bookingDetails.html',
+                    controller: 'bookingDetailsCtrl'
                 }) 
-                .state('dashbord.images', {
-                    url: '/images',
-                    templateUrl: 'views/images/images.html',
-                    controller: 'imagesCtrl'
-                })                                 
+                .state('dashbord.Payment', {
+                    url: '/Payment',
+                    templateUrl: 'views/Payment/Payment.html',
+                    controller: 'PaymentCtrl'
+                })   
+                .state('dashbord.bookingCancellation', {
+                    url: '/bookingCancellation',
+                    templateUrl: 'views/bookingCancellation/bookingCancellation.html',
+                    controller: 'bookingCancellationCtrl'
+                })                                               
                 .state('dashbord.home', {
                     url: '/home',
                     templateUrl: 'views/dashbord/home.html',

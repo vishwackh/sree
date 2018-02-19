@@ -3,12 +3,12 @@
 
     angular
         .module('emsAdmin')
-        .controller('categoriesCtrl', categoriesCtrl);
+        .controller('inquiryCtrl', inquiryCtrl);
 
-    categoriesCtrl.$inject = ['$scope', '$http', '$rootScope', 'localStorageService', 'toaster', '$state'];
+        inquiryCtrl.$inject = ['$scope', '$http', '$rootScope', 'localStorageService', 'toaster', '$state'];
 
     /* @ngInject */
-    function categoriesCtrl($scope, $http, $rootScope, localStorageService, toaster, $state) {
+    function inquiryCtrl($scope, $http, $rootScope, localStorageService, toaster, $state) {
         $scope.ldata = {};
         $scope.addlocationdata = function (location,userForm) {
             $scope.submitted = true;

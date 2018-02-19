@@ -9,7 +9,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand">Solar ADMIN</a>
+        <a class="navbar-brand">Sri Convention Centre</a>
     </div>
     <!-- Top Menu Items -->
     <ul class="nav navbar-right top-nav">
@@ -32,25 +32,33 @@
                     <span>Dashboard</span>
                 </a>
             </li>
-            <li data-toggle="tooltip" data-placement="right" title="Special Packages" ng-class="{active:$state.includes('dashbord.categories')}">
-                <a ui-sref="dashbord.categories">
+            <li data-toggle="tooltip" data-placement="right" title="Inquiry" ng-class="{active:$state.includes('dashbord.inquiry')}">
+                <a ui-sref="dashbord.inquiry">
                     <i class="fa fa-fw fa-sitemap"></i>
-                    <span>Special Packages</span>
+                    <span>Inquiry</span>
                 </a>
             </li>
-            <li data-toggle="tooltip" data-placement="right" title="packages" ng-class="{active:$state.includes('dashbord.packages')}">
-                <a ui-sref="dashbord.packages">
+            <li data-toggle="tooltip" data-placement="right" title="BookingDetails" ng-class="{active:$state.includes('dashbord.BookingDetails')}">
+                <a ui-sref="dashbord.BookingDetails">
                     <i class="fa fa-fw fa-youtube-square"></i>
-                    <span>Packages</span>
+                    <span>Booking Details</span>
                 </a>
             </li>
 
-            <li data-toggle="tooltip" data-placement="right" title="Slider Images" ng-class="{active:$state.includes('dashbord.images')}">
-                <a ui-sref="dashbord.images">
+            <li data-toggle="tooltip" data-placement="right" title="Payment" ng-class="{active:$state.includes('dashbord.Payment')}">
+                <a ui-sref="dashbord.Payment">
                     <i class="fa fa-fw fa-picture-o"></i>
-                    <span>Slider Images</span>
+                    <span>Payment</span>
                 </a>
             </li>
+
+            <li data-toggle="tooltip" data-placement="right" title="bookingCancellation" ng-class="{active:$state.includes('dashbord.bookingCancellation')}">
+                <a ui-sref="dashbord.bookingCancellation">
+                    <i class="fa fa-fw fa-picture-o"></i>
+                    <span>Booking Cancellation</span>
+                </a>
+            </li>            
+          
         </ul>
     </div>
     <!-- /.navbar-collapse -->

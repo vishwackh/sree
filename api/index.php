@@ -24,8 +24,7 @@ $app->add(function ($req, $res, $next) {
 
 require './api/utils.php';
 require './api/dbHandler.php';
-require './api/user.php'; 
-require './api/product.php';
+require './api/user.php';
 require './api/dbConnect.php';
 
 $app->run();

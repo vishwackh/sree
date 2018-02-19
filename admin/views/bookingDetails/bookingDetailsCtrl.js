@@ -3,12 +3,12 @@
 
     angular
         .module('emsAdmin')
-        .controller('videoCtrl', videoCtrl);
+        .controller('bookingDetailsCtrl', bookingDetailsCtrl);
 
-    videoCtrl.$inject = ['$scope', '$http', '$rootScope', 'localStorageService', 'toaster', '$state'];
+    bookingDetailsCtrl.$inject = ['$scope', '$http', '$rootScope', 'localStorageService', 'toaster', '$state'];
 
     /* @ngInject */
-    function videoCtrl($scope, $http, $rootScope, localStorageService, toaster, $state) {
+    function bookingDetailsCtrl($scope, $http, $rootScope, localStorageService, toaster, $state) {
         $scope.ldata = {};
         $scope.path = '../api/upload/';
         $scope.upFile = [];
