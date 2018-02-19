@@ -1,0 +1,130 @@
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+</head>
+<style>
+
+</style>
+
+<body>
+	<table style="width: 100%;">
+		<tbody>
+			<tr>
+				<th style="background: #222 none repeat scroll 0 0;color: white;
+    font: bold 15px Helvetica,sans-serif;
+    height: 15px;
+    letter-spacing: 20px;
+    margin: 20px 0;
+    padding: 8px 0;
+    text-align: center;
+    width: 100%;">INVOICE</th>
+			</tr>
+		</tbody>
+	</table>
+	<table style="width: 100%;">
+		<tbody>
+			<tr>
+
+				<th style="padding-right: 50px;">  <img width="145" height="53" alt="Freshjoy" style="margin:5px 0 0 0" src="http://freshjoy.in/api/upload/logo.png"></th>
+			</tr>
+		</tbody>
+	</table>
+
+		<table style="width: 100%;">
+		<tbody>
+			<tr>
+				<th style="width: 220px;">{{cmpAddress}}</th>
+				
+			</tr>
+		</tbody>
+	</table>
+
+	<hr/>
+	<table style="width: 100%;">
+		<tbody>
+			<tr>
+				<th style="float: left;text-align: left;">
+					Order ID : <span style="font-weight: normal">{{orderid}}</span>
+					<br/> Order Date : <span style="font-weight: normal"> {{orDate}}</span>
+					<br/> Invoice Date: <span style="font-weight: normal">{{InvoiceDate}} </span>
+					<br/> VAT/TIN: <span style="font-weight: normal">{{TIN}}</span>
+				
+				</th>
+				<th style="float: left;margin-left: 50px;text-align: left;width: 190px;">
+					<span>	Billing Address   </span><br/>
+					<span style="font-weight: normal;">	{{userName}} </span>
+					<span style="font-weight: normal;">	{{Address}}</span>
+					</th>
+			</tr>
+		</tbody>
+	</table>
+	<hr/>
+	<table style="width: 100%;">
+		<tbody>
+			<tr style="background-color: #eee;">
+				<th style="width: 30%">Product</th>
+				<th style="width: 30%">Qty</th>
+				<th style="width: 30%">Days</th>
+				<th style="width: 30%">Price</th>
+			</tr>
+		</tbody>
+	</table>
+	<hr/> {{items}}
+	<!--<table style="width: 100%;">
+		<tbody>
+			<tr>
+				<th style="font-weight: normal;width: 30%">Product</th>
+				<th style="font-weight: normal;width: 30%">1</th>
+				<th style="font-weight: normal;width: 30%">1</th>
+				<th style="font-weight: normal;width: 30%">$23</th>
+			</tr>
+		</tbody>
+	</table>-->
+	<!--<table style="width: 100%;">
+		<tbody>
+			<tr>
+				<th style="font-weight: normal;width: 30%">Product</th>
+				<th style="font-weight: normal;width: 30%">1</th>
+				<th style="font-weight: normal;width: 30%">1</th>
+				<th style="font-weight: normal;width: 30%">$23</th>
+			</tr>
+		</tbody>
+	</table>-->
+	<table style="width: 100%;">
+		<tbody>
+			<tr>
+				<th style="font-weight: normal;width: 30%"></th>
+				<th style="font-weight: normal;width: 30%;font-weight: bold;">
+					<hr/> Tax
+				</th>
+				<th style="font-weight: normal;width: 30%;font-weight: bold;">
+					<hr/> {{Taxrate}}
+				</th>
+			</tr>
+		</tbody>
+	</table>
+	<table style="width: 100%;">
+		<tbody>
+			<tr>
+				<th style="font-weight: normal;width: 30%"></th>
+				<th style="font-weight: normal;width: 30%;font-weight: bold;">
+					Total
+				</th>
+				<th style="font-weight: normal;width: 30%;font-weight: bold;">
+					{{Total}}
+				</th>
+			</tr>
+		</tbody>
+	</table>
+	<hr/>
+	<table style="width: 100%;">
+		<tbody>
+			<tr>
+				<th style="font-weight: normal;font-size: 12px;padding-bottom: 20px;">"This is a system generated Invoice, do not reply". To contact us call <b> "08065956501" </b> or email us at <b> "write2us@freshjoy.in" </b></th>
+			</tr>
+		</tbody>
+	</table>
+</body>
+
+</html>
