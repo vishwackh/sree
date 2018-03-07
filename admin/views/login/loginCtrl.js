@@ -12,6 +12,7 @@
 
         $rootScope.userinfo = [];
         $scope.loginfun = function () {
+            console.log("scope users==>",$scope.user);
             $scope.submitted = true;
             if ($scope.login.$valid) {
                 $http.post($rootScope.ApiUrl + 'adminlogin', $scope.user).then(function (data) {

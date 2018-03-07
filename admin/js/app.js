@@ -4,9 +4,9 @@
     angular
         .module('emsAdmin', [
             'ui.router',
+            'ui.bootstrap',
             'toaster',
-            'LocalStorageModule',
-            'ui.bootstrap'
+            'LocalStorageModule'
         ]).directive('fileModel', ['$parse', function ($parse) {
             return {
                restrict: 'A',
@@ -88,6 +88,33 @@
                 // }
                 // return out;
             }
+        }).directive('validNumber', function() {
+            return {
+                require: '?ngModel',
+                link: function(scope, element, attrs, ngModelCtrl) {
+                    if (!ngModelCtrl)
+                        return;
+    
+    
+                    ngModelCtrl.$parsers.push(function(val) {
+                        if (angular.isUndefined(val))
+                            val = '';
+    
+                        var clean = val.replace(/[^0-9]+/g, '');
+                        if (val !== clean) {
+                            ngModelCtrl.$setViewValue(clean);
+                            ngModelCtrl.$render();
+                        }
+                        return clean;
+                    });
+    
+                    element.bind('keypress', function(event) {
+                        if (event.keyCode === 32)
+                            event.preventDefault();
+    
+                    });
+                }
+            };
         })
         .run(function ($rootScope) {
         //  $rootScope.ApiUrl = "http://svarks.in/api/";

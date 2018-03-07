@@ -5,62 +5,94 @@
         .module('emsAdmin')
         .controller('bookingDetailsCtrl', bookingDetailsCtrl);
 
-    bookingDetailsCtrl.$inject = ['$scope', '$http', '$rootScope', 'localStorageService', 'toaster', '$state'];
+    bookingDetailsCtrl.$inject = ['$scope', '$http', '$rootScope', 'localStorageService', 'toaster', '$state','$filter'];
 
     /* @ngInject */
-    function bookingDetailsCtrl($scope, $http, $rootScope, localStorageService, toaster, $state) {
-        $scope.ldata = {};
-        $scope.path = '../api/upload/';
-        $scope.upFile = [];
-        $scope.getFileDetails = function (e) {
-            $scope.upFile = [];
-            $scope.$apply(function () {
-                // STORE THE FILE OBJECT IN AN ARRAY.
-                for (var i = 0; i < e.files.length; i++) {
-                    $scope.upFile.push(e.files[i])
-                }
-            });
+    function bookingDetailsCtrl($scope, $http, $rootScope, localStorageService, toaster, $state,$filter) {
+        function clearForm(){
+            $scope.booking={
+                'customername':'',
+                'bridename':'',
+                'brideDOB':'',
+                'groomname':'',
+                'groomDOB':'',
+                'eventdate':'',
+                'numberOfDays':'',
+                'eventenddate':'',
+                'phonenumber':'',
+                'emailid':'',
+                'eventname':'',
+                'panadharno':'',
+                'address':'',
+                'totalamount':'',
+                'addOnServices':'',
+                'bookingType':'2',
+                'paidamount':'',
+                'paymentType':'',
+                'chequeno':'',
+                'chequeURL':'',
+                'balanceamount':''				
+            };	
+        }
+        $scope.popup1 = {
+            opened: false
         };
-        $scope.message = "Upload Data"
-        $scope.addvideo = function (ldata,userForm) {
+        $scope.popup2 = {
+            opened: false
+        };
+        $scope.popup3 = {
+            opened: false
+        };
+        $scope.popup4 = {
+            opened: false
+        };                
+        $scope.open1 = function () {
+            $scope.popup1.opened = true;
+        };
+        $scope.open2 = function () {
+            $scope.popup2.opened = true;
+        };
+        $scope.open3 = function () {
+            $scope.popup3.opened = true;
+        };   
+        $scope.open4 = function () {
+            $scope.popup4.opened = true;
+        };              
+        // $scope.altInputFormats = ['M!/d!/yyyy'];
+        $scope.dateOptions = {
+            dateDisabled: false,
+            formatYear: 'yyyy/MM/dd',
+            maxDate: new Date(2020, 5, 22),
+            minDate: new Date(),
+            startingDay: 1
+          };   
+          $scope.dateOptions1 = {
+            dateDisabled: false,
+            formatYear: 'yyyy/MM/dd',
+            maxDate: new Date(),
+            minDate: new Date(1940, 5, 22),
+            startingDay: 1
+          };          
+          $scope.addbooking =function(userForm){
             $scope.submitted = true;
-           
-
             if (userForm.$valid) {
-                $scope.message = "Uploading......";
-                var file = $scope.upFile;
-                var fd = new FormData();
-                fd.append('file', file);
-                fd.append('page', ldata.page);
-                fd.append('title', ldata.title);
-                fd.append('description', ldata.description);
-
-                $http.post($rootScope.ApiUrl + 'addVideo', fd, {
-                    transformRequest: angular.identity,
-                    headers: { 'Content-Type': undefined }
-                }).then(function (data) {
-                    if (data.data.status) {
-                        toaster.pop('success', "Success", "addded successfully.");
-                        $scope.upFile = [];
-                        $scope.ldata.page='';
-                        $scope.ldata.title='';
-                        $scope.ldata.description='';
+                $scope.booking.brideDOB=angular.copy($filter('date')($scope.booking.brideDOB, "yyyy-MM-dd"));   
+                $scope.booking.groomDOB=angular.copy($filter('date')($scope.booking.groomDOB, "yyyy-MM-dd"));
+                $scope.booking.eventdate=angular.copy($filter('date')($scope.booking.eventdate, "yyyy-MM-dd"));           
+                $scope.booking.eventenddate=angular.copy($filter('date')($scope.booking.eventenddate, "yyyy-MM-dd")); 
+                $http.post($rootScope.ApiUrl + 'booking', $scope.booking).then(function (data) {       
+                    if (data) {
+                        toaster.pop('success', "Success", "Payment details Inserted successfully");
+                        clearForm();
                         userForm.$setPristine();
-                        $scope.getVideoList()
-                        $scope.message = "Upload Data"
-                    } else {
-                        toaster.pop('error', "Error", "Rename image name & try again.");
-                        $scope.message = "Upload Data"
+                        $scope.bookingData(); 
                     }
                 });
-
             }
-        };
- 
-        
-        function setValue() {
+          };    
+          function setValue() {
             $scope.viewby = 5;
-            $scope.totalItems = $scope.videoList.length;
+            $scope.totalItems = $scope.Inquiry.length;
             $scope.currentPage = 1;
             $scope.itemsPerPage = $scope.viewby;
             $scope.maxSize = 5; //Number of pager buttons to show                    
@@ -72,50 +104,57 @@
             $scope.itemsPerPage = num;
             $scope.currentPage = 1; //reset to first page
         }
-
-        $scope.deletelocation = function (x) {
-            $scope.delobj = x;
-            $('#deletemodel').modal('show');
-        };
-
-        $scope.getCategory = function () {
-            $http.get($rootScope.ApiUrl + 'getCategory').then(function (data) {
-                if (data) {
-                    $scope.categories = angular.copy(data.data.data);
-                }
-            });
-        };
-        $scope.getVideoList = function () {
-            $http.get($rootScope.ApiUrl + 'getVideoList').then(function (data) {
-                if (data) {
-                    $scope.videoList = angular.copy(data.data.data);
-                    
-                    if($scope.videoList)
-                    { setValue()}
-                }
-            });
-        };
-
-        $scope.viewImage = function (x) {
-            $scope.image = '../api/upload/' + x.url;
-
+        $scope.view = function (x) {
+            $scope.viewData = x;
             $('#viewmodel').modal('show');
         }
 
-        $scope.deleteVideorecord = function (customer) {
-            $http.post($rootScope.ApiUrl + 'deleteVideo', customer).then(function (data) {
+        $scope.bookingData = function () {
 
-                if (data.data.status) {
-                    toaster.pop('success', "Success", "Deleted successfully.");
-                    $scope.getVideoList()
-                } else {
-                    toaster.pop('error', "Error", "Error While deleting video.");
+            //FETCH BOOKING DETAILS
+            $http.get($rootScope.ApiUrl + 'getbookingDetails').then(function (data) {
+                if (data.data) {
+                    $scope.Inquiry=angular.copy(data.data);
+                    if($scope.Inquiry)
+                    { setValue()} 
                 }
-                $('#deletemodel').modal('hide');
             });
         };
-        $scope.getCategory()
-        $scope.getVideoList()
+        clearForm();
+        $scope.bookingData(); 
+
+        $scope.bookingHall = function () {
+            console.log("booking function triggered");
+            $scope.booking.customername = "abcd";
+            $scope.booking.bridename = "abcd";
+            $scope.booking.brideDOB = "1989-09-06";
+            $scope.booking.groomname = "aaaaa"
+            $scope.booking.groomDOB = "1989-09-06"
+            $scope.booking.eventdate = "2013-03-04";
+            $scope.booking.numberOfDays = 2;
+            $scope.booking.eventenddate = "2018-03-07";
+            $scope.booking.phonenumber = "9535184724";
+            $scope.booking.emailid = "abcd@gmail.com"
+            $scope.booking.eventname = "Marriage";
+            $scope.booking.panadharno = "bsmpk7206r";
+            $scope.booking.totalamount = 100000;
+            $scope.booking.address = "acdfa kasdf asdfj fasd ";
+            $scope.booking.bookingType = 2;   //if it is enquiry form assign bookingtype=1 same function it will work
+            $scope.booking.addOnServices = "1,6,7,8";
+
+            $scope.booking.paidamount = 30000;
+            $scope.booking.paymentType = "cash";
+            $scope.booking.chequeno = "";
+            $scope.booking.chequeURL = "";
+            $scope.booking.balanceamount = $scope.booking.totalamount - $scope.booking.paidamount;
+            console.log("booking object==>", $scope.booking);
+
+            $http.post($rootScope.ApiUrl + 'booking', $scope.booking).then(function (data) {
+                console.log('booking info ----------------------', data);
+                if (data.data.status) {
+                    console.log("login");
+                }
+            });
+        };
     }
 })();
- 

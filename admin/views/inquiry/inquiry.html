@@ -6,73 +6,140 @@
                 <a ui-sref="dashbord.home">Dashboard</a>
             </li>
             <li class="active">
-                <i class="fa fa-edit"></i> Special Packages
+                <i class="fa fa-edit"></i> Inquiry
             </li>
         </ol>
     </div>
 </div>
 <div class="row">
-    <div class="col-sm-offset-4 col-sm-4">
+    <div class="col-sm-offset-1 col-sm-11">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title">Add New Special Packages</h3>
+                <h3 class="panel-title">Add New Inquiry</h3>
             </div>
             <div class="panel-body">
                 <form name="userForm" novalidate>
-                    <fieldset>
-                        <div class="form-group">
-                            <div class="form-row">
-                                <div class="form-group" ng-class="{ 'has-error' : !userForm.package.$valid && (userForm.package.$dirty || userForm.$submitted),'has-success' : userForm.package.$valid && (userForm.package.$dirty || submitted)}">
-                                    <input type="text" name="package" class="form-control" ng-model="ldata.package" placeholder="Your package" ng-required="true">
-                                    <p ng-show="userForm.package.$error.required && (userForm.package.$dirty || userForm.$submitted)" class="help-block">title is required.</p>
-                                </div>
+                    <div class="form-group col-sm-4">
+                        <div class="form-row">
+                            <div class="form-group" ng-class="{ 'has-error' : !userForm.customername.$valid && (userForm.customername.$dirty || userForm.$submitted),'has-success' : userForm.customername.$valid && (userForm.customername.$dirty || submitted)}">
+                                <input type="text" name="customername" class="form-control" ng-model="booking.customername" placeholder="Customer name" ng-required="true">
+                                <p ng-show="userForm.customername.$error.required && (userForm.customername.$dirty || userForm.$submitted)" class="help-block">customer name is required.</p>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <div class="form-row">
-                                <div class="form-group" ng-class="{ 'has-error' : !userForm.title.$valid && (userForm.title.$dirty || userForm.$submitted),'has-success' : userForm.title.$valid && (userForm.title.$dirty || submitted)}">
-                                    <input type="text" name="title" class="form-control" ng-model="ldata.title" placeholder="Your title" ng-required="true">
-                                    <p ng-show="userForm.title.$error.required && (userForm.title.$dirty || userForm.$submitted)" class="help-block">title is required.</p>
-                                </div>
+                    </div>
+                     <div class="form-group col-sm-4">
+                        <div class="form-row">
+                            <div class="form-group" ng-class="{ 'has-error' : !userForm.bridename.$valid && (userForm.bridename.$dirty || userForm.$submitted),'has-success' : userForm.bridename.$valid && (userForm.bridename.$dirty || submitted)}">
+                                <input type="text" name="bridename" class="form-control" ng-model="booking.bridename" placeholder="Bride name" ng-required="true">
+                                <p ng-show="userForm.bridename.$error.required && (userForm.bridename.$dirty || userForm.$submitted)" class="help-block">bride name is required.</p>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <div class="form-row" ng-class="{ 'has-error' : !userForm.field1.$valid && (userForm.field1.$dirty || userForm.$submitted),'has-success' : userForm.field1.$valid && (userForm.field1.$dirty || submitted)}">
-                                <input class="form-control" rows="5" name="field1" class="form-control" ng-model="ldata.field1" placeholder="Your field1"
-                                    ng-required="true"> 
-                                <p ng-show="userForm.field1.$error.required && (userForm.field1.$dirty || userForm.$submitted)" class="help-block">field1 is required.</p>
-                            </div>
-                        </div>    
-                        <div class="form-group">
-                            <div class="form-row" ng-class="{ 'has-error' : !userForm.field2.$valid && (userForm.field2.$dirty || userForm.$submitted),'has-success' : userForm.field2.$valid && (userForm.field2.$dirty || submitted)}">
-                                <input class="form-control" rows="5" name="field2" class="form-control" ng-model="ldata.field2" placeholder="Your field2"
-                                    ng-required="true"> 
-                                <p ng-show="userForm.field2.$error.required && (userForm.field2.$dirty || userForm.$submitted)" class="help-block">field2 is required.</p>
-                            </div>
-                        </div>   
-                        <div class="form-group">
-                            <div class="form-row" ng-class="{ 'has-error' : !userForm.field3.$valid && (userForm.field3.$dirty || userForm.$submitted),'has-success' : userForm.field3.$valid && (userForm.field3.$dirty || submitted)}">
-                                <input class="form-control" rows="5" name="field3" class="form-control" ng-model="ldata.field3" placeholder="Your field3"
-                                    ng-required="true"> 
-                                <p ng-show="userForm.field3.$error.required && (userForm.field3.$dirty || userForm.$submitted)" class="help-block">field3 is required.</p>
+                    </div> 
+                    <div class="form-group col-sm-4">
+                        <div class="form-row">
+                            <div class="form-group" ng-class="{ 'has-error' : !userForm.groomname.$valid && (userForm.groomname.$dirty || userForm.$submitted),'has-success' : userForm.groomname.$valid && (userForm.groomname.$dirty || submitted)}">
+                                <input type="text" name="groomname" class="form-control" ng-model="booking.groomname" placeholder="Groom name" ng-required="true">
+                                <p ng-show="userForm.groomname.$error.required && (userForm.groomname.$dirty || userForm.$submitted)" class="help-block">Groom name is required.</p>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <div class="form-row" >
-                                <input class="form-control" rows="5" name="field4" class="form-control" ng-model="ldata.field4" placeholder="Your field4"
-                                    > 
-                                <!-- <p ng-show="userForm.field4.$error.required && (userForm.field4.$dirty || userForm.$submitted)" class="help-block">field4 is required.</p> -->
+                    </div>                     
+                    <div class="form-group col-sm-4">
+                        <p class="input-group" ng-class="{ 'has-error' : !userForm.brideDOB.$valid && (userForm.brideDOB.$dirty || userForm.$submitted),'has-success' : userForm.brideDOB.$valid && (userForm.brideDOB.$dirty || submitted)}">
+                            <input type="text" class="form-control" uib-datepicker-popup="yyyy/MM/dd" name ="brideDOB" ng-model="booking.brideDOB" is-open="popup1.opened" datepicker-options="dateOptions1" ng-required="true" close-text="Close" placeholder="Bride DOB" alt-input-formats="altInputFormats" readonly/>
+                            <span class="input-group-btn">
+                              <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+                            </span>
+                            <p ng-show="userForm.brideDOB.$error.required && (userForm.brideDOB.$dirty || userForm.$submitted)" class="help-block">bride DOB is required.</p>
+                          </p>                        
+                    </div>   
+  
+                    <div class="form-group col-sm-4">
+                        <p class="input-group" ng-class="{ 'has-error' : !userForm.groomDOB.$valid && (userForm.groomDOB.$dirty || userForm.$submitted),'has-success' : userForm.groomDOB.$valid && (userForm.groomDOB.$dirty || submitted)}">
+                            <input type="text" class="form-control" uib-datepicker-popup="yyyy/MM/dd" name ="groomDOB" ng-model="booking.groomDOB" is-open="popup2.opened" datepicker-options="dateOptions1" ng-required="true" close-text="Close" placeholder="Groom DOB" alt-input-formats="altInputFormats" readonly/>
+                            <span class="input-group-btn">
+                              <button type="button" class="btn btn-default" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
+                            </span>
+                            <p ng-show="userForm.groomDOB.$error.required && (userForm.groomDOB.$dirty || userForm.$submitted)" class="help-block">groom DOB is required.</p>
+                          </p>                        
+                    </div>     
+                    <div class="form-group col-sm-4">
+                        <p class="input-group" ng-class="{ 'has-error' : !userForm.eventdate.$valid && (userForm.eventdate.$dirty || userForm.$submitted),'has-success' : userForm.eventdate.$valid && (userForm.eventdate.$dirty || submitted)}">
+                            <input type="text" class="form-control" uib-datepicker-popup="yyyy/MM/dd" name ="eventdate" ng-model="booking.eventdate" is-open="popup3.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" placeholder="Event Date" alt-input-formats="altInputFormats" readonly/>
+                            <span class="input-group-btn">
+                              <button type="button" class="btn btn-default" ng-click="open3()"><i class="glyphicon glyphicon-calendar"></i></button>
+                            </span>
+                            <p ng-show="userForm.eventdate.$error.required && (userForm.eventdate.$dirty || userForm.$submitted)" class="help-block">Event date is required.</p>
+                          </p>                        
+                    </div>
+                    <div class="form-group col-sm-4">
+                        <p class="input-group" ng-class="{ 'has-error' : !userForm.eventenddate.$valid && (userForm.eventenddate.$dirty || userForm.$submitted),'has-success' : userForm.eventenddate.$valid && (userForm.eventenddate.$dirty || submitted)}">
+                            <input type="text" class="form-control" uib-datepicker-popup="yyyy/MM/dd" name ="eventenddate" ng-model="booking.eventenddate" is-open="popup4.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" placeholder="Event end date" alt-input-formats="altInputFormats" readonly/>
+                            <span class="input-group-btn">
+                              <button type="button" class="btn btn-default" ng-click="open4()"><i class="glyphicon glyphicon-calendar"></i></button>
+                            </span>
+                            <p ng-show="userForm.eventenddate.$error.required && (userForm.eventenddate.$dirty || userForm.$submitted)" class="help-block">Event end date is required.</p>
+                          </p>                        
+                    </div>  
+                    <div class="form-group col-sm-4">
+                        <div class="form-row">
+                            <div class="form-group" ng-class="{ 'has-error' : !userForm.numberOfDays.$valid && (userForm.numberOfDays.$dirty || userForm.$submitted),'has-success' : userForm.numberOfDays.$valid && (userForm.numberOfDays.$dirty || submitted)}">
+                                <input type="text" valid-number name="numberOfDays" class="form-control" ng-model="booking.numberOfDays" placeholder="Number of days" ng-required="true">
+                                <p ng-show="userForm.numberOfDays.$error.required && (userForm.numberOfDays.$dirty || userForm.$submitted)" class="help-block">Number Of days is required.</p>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <div class="form-row">
-                                <input class="form-control" rows="5" name="field5" class="form-control" ng-model="ldata.field5" placeholder="Your field5"> 
-                                <!-- <p ng-show="userForm.field5.$error.required && (userForm.field5.$dirty || userForm.$submitted)" class="help-block">field5 is required.</p> -->
+                    </div> 
+                    <div class="form-group col-sm-4">
+                        <div class="form-row">
+                            <div class="form-group" ng-class="{ 'has-error' : !userForm.phonenumber.$valid && (userForm.phonenumber.$dirty || userForm.$submitted),'has-success' : userForm.phonenumber.$valid && (userForm.phonenumber.$dirty || submitted)}">
+                                <input type="text" valid-number name="phonenumber" maxlength="10" class="form-control" ng-model="booking.phonenumber" placeholder="Phone Number" ng-required="true">
+                                <p ng-show="userForm.phonenumber.$error.required && (userForm.phonenumber.$dirty || userForm.$submitted)" class="help-block">Phone number is required.</p>
                             </div>
-                        </div>                                                                                                                   
-                        <button type="submit" class="btn btn-primary"   ng-click="userForm.$submitted=true;addlocationdata(ldata,userForm)">Add Record</button>
-                    </fieldset>
+                        </div>
+                    </div> 
+                    <div class="form-group col-sm-4">
+                        <div class="form-row">
+                            <div class="form-group" ng-class="{ 'has-error' : !userForm.emailid.$valid && (userForm.emailid.$dirty || userForm.$submitted),'has-success' : userForm.emailid.$valid && (userForm.emailid.$dirty || submitted)}">
+                                <input type="email"  name="emailid" maxlength="80" class="form-control" ng-model="booking.emailid" placeholder="Email id" ng-required="true">
+                                <p ng-show="userForm.emailid.$error.required && (userForm.emailid.$dirty || userForm.$submitted)" class="help-block">Email id is required.</p>
+                            </div>
+                        </div>
+                    </div>      
+                    <div class="form-group col-sm-4">
+                        <div class="form-row">
+                            <div class="form-group" ng-class="{ 'has-error' : !userForm.eventname.$valid && (userForm.eventname.$dirty || userForm.$submitted),'has-success' : userForm.eventname.$valid && (userForm.eventname.$dirty || submitted)}">
+                                <input type="text" name="eventname" class="form-control" ng-model="booking.eventname" placeholder="event name" ng-required="true">
+                                <p ng-show="userForm.eventname.$error.required && (userForm.eventname.$dirty || userForm.$submitted)" class="help-block">event name is required.</p>
+                            </div>
+                        </div>
+                    </div> 
+                    <div class="form-group col-sm-4">
+                        <div class="form-row">
+                            <div class="form-group" ng-class="{ 'has-error' : !userForm.panadharno.$valid && (userForm.panadharno.$dirty || userForm.$submitted),'has-success' : userForm.panadharno.$valid && (userForm.panadharno.$dirty || submitted)}">
+                                <input type="text" name="panadharno" class="form-control" ng-model="booking.panadharno" placeholder="PAN/Adhar number" ng-required="true">
+                                <p ng-show="userForm.panadharno.$error.required && (userForm.panadharno.$dirty || userForm.$submitted)" class="help-block">PAN/Adhar number is required.</p>
+                            </div>
+                        </div>
+                    </div>                                                                          
+                    <div class="form-group col-sm-4">
+                        <div class="form-row" ng-class="{ 'has-error' : !userForm.address.$valid && (userForm.address.$dirty || userForm.$submitted),'has-success' : userForm.address.$valid && (userForm.address.$dirty || submitted)}">
+                            <textarea class="form-control" rows="5" name="address" class="form-control" ng-model="booking.address" placeholder="Your address"
+                                ng-required="true"></textarea>
+                            <p ng-show="userForm.address.$error.required && (userForm.address.$dirty || userForm.$submitted)" class="help-block">address is required.</p>
+                        </div>
+                    </div>    
+                    <div class="form-group col-sm-4">
+                        <div class="form-row">
+                            <div class="form-group" ng-class="{ 'has-error' : !userForm.totalamount.$valid && (userForm.totalamount.$dirty || userForm.$submitted),'has-success' : userForm.totalamount.$valid && (userForm.totalamount.$dirty || submitted)}">
+                                <input type="text" valid-number name="totalamount" maxlength="10" class="form-control" ng-model="booking.totalamount" placeholder="Total Amount" ng-required="true">
+                                <p ng-show="userForm.totalamount.$error.required && (userForm.totalamount.$dirty || userForm.$submitted)" class="help-block">Total Amount is required.</p>
+                            </div>
+                        </div>
+                    </div>                                            
                     <div class="clearfix">&nbsp;</div>
+
+                    <button type="submit" class="btn btn-primary" ng-click="addEnquiry(userForm)">add Enquiry</button>
+
+                    
                 </form>
             </div>
         </div>
@@ -83,7 +150,7 @@
     <div class="panel panel-default">
         <div class="panel-heading">
             <h3 class="panel-title">
-                <i class="fa fa-table"></i> Special Packages Table</h3>
+                <i class="fa fa-table"></i> Inquiry Table</h3>
         </div>
         <div class="panel-body">
                 <div class="row">
@@ -100,35 +167,38 @@
                                 </select>
                             </div>
                         </div>
-                    </div>            
+                    </div>    
+                         
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
                             <th>SL No</th>
-                            <th>Name</th>
-                            <th>Title</th>
-                            <th>Created Date</th>
+                            <th>Customer Name</th>
+                            <th>Event name</th>
+                            <th>Event start Date</th>
+                            <th>Event End Date</th>
                             <th>View</th>
-                            <th>Delete</th>
+                            <!-- <th>Delete</th> -->
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="cat in categories.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))">
+                        <tr ng-repeat="cat in Inquiry.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))">
                             <td>{{((currentPage * itemsPerPage) - itemsPerPage) + ($index+1)}}</td>
-                            <td>{{cat.package}}</td>
-                            <td>{{cat.title}}</td>  
-                            <td>{{cat.createdDate |timeago}}</td>
+                            <td>{{cat.customername}}</td>
+                            <td>{{cat.eventname}}</td>  
+                            <td>{{cat.eventdate }}</td>
+                            <td>{{cat.eventenddate }}</td>
                             <td>
                                     <a class="btn btn-success" ng-click="view(cat)">
                                         <em class="fa fa-eye"></em>
                                     </a>
                                 </td>                            
-                            <td>
+                            <!-- <td>
                                 <a class="btn btn-danger" ng-click="deletelocation(cat)">
                                     <em class="fa fa-trash"></em>
                                 </a>
-                            </td>
+                            </td> -->
                         </tr>
                     </tbody>
                 </table>
@@ -176,7 +246,7 @@
                         <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">×</span>
                         </button>
-                        <h5 class="modal-title" id="exampleModalLabel">Confirm?</h5>                    
+                        <h5 class="modal-title" id="exampleModalLabel">Inquiry Details {{viewData.eventname}}</h5>                    
                 </div>
                 <div class="modal-body">
                         <div class="row">
@@ -184,14 +254,23 @@
                                     <!-- Category -->
                                     <div class="single category">
                                         <ul class="list-unstyled">
-                                            <li><a  title="">package <span class="pull-right">{{viewData.package}}</span></a></li>
-                                            <li><a  title="">Title <span class="pull-right">{{viewData.title}}</span></a></li>
-                                            <li><a  title="">field1 <span class="pull-right">{{viewData.field1}}</span></a></li>
-                                            <li><a  title="">field2 <span class="pull-right">{{viewData.field2}}</span></a></li>
-                                            <li><a  title="">field3 <span class="pull-right">{{viewData.field3}}</span></a></li>
-                                            <li><a  title="">field4 <span class="pull-right">{{viewData.field4 || 'Not Availble'}}</span></a></li>
-                                            <li><a  title="">field5 <span class="pull-right">{{viewData.field5 || 'Not Availble'}}</span></a></li>
-                                            <li><a  title="">Created Date <span class="pull-right">{{viewData.createdDate |timeago}}</span></a></li>
+                                            <li><a  title="">eventname <span class="pull-right">{{viewData.eventname}}</span></a></li>
+                                            <li><a  title="">customername <span class="pull-right">{{viewData.customername}}</span></a></li>
+                                            <li><a  title="">bridename <span class="pull-right">{{viewData.bridename}}</span></a></li>
+                                            <li><a  title="">brideDOB <span class="pull-right">{{viewData.brideDOB | date:'MM/dd/yyyy' }}</span></a></li>
+                                            <li><a  title="">groomname <span class="pull-right">{{viewData.groomname}}</span></a></li>
+                                            <li><a  title="">groomDOB <span class="pull-right">{{viewData.groomDOB}}</span></a></li>
+                                            <li><a  title="">eventdate <span class="pull-right">{{viewData.eventdate }}</span></a></li>
+                                            <li><a  title="">eventenddate <span class="pull-right">{{viewData.eventenddate }}</span></a></li>
+                                            
+                                            <li><a  title="">phonenumber <span class="pull-right">{{viewData.phonenumber }}</span></a></li>
+                                            
+                                            <li><a  title="">emailid <span class="pull-right">{{viewData.emailid }}</span></a></li>                                            
+                                            <li><a  title="">addOnServices <span class="pull-right">{{viewData.addOnServices }}</span></a></li>                                            
+                                            <li><a  title="">address <span class="pull-right">{{viewData.address }}</span></a></li>
+                                            <li><a  title="">panadharno <span class="pull-right">{{viewData.panadharno }}</span></a></li>
+                                            <li><a  title="">totalamount <span class="pull-right">{{viewData.totalamount }}</span></a></li>                                                                                        
+                                            <li><a  title="">modifiedTime <span class="pull-right">{{viewData.modifiedTime |timeago}}</span></a></li>
                                         </ul>
                                    </div>
                                 </div> 

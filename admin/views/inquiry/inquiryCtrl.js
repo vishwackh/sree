@@ -5,38 +5,90 @@
         .module('emsAdmin')
         .controller('inquiryCtrl', inquiryCtrl);
 
-        inquiryCtrl.$inject = ['$scope', '$http', '$rootScope', 'localStorageService', 'toaster', '$state'];
+        inquiryCtrl.$inject = ['$scope', '$http', '$rootScope', 'localStorageService', 'toaster', '$state','$filter'];
 
     /* @ngInject */
-    function inquiryCtrl($scope, $http, $rootScope, localStorageService, toaster, $state) {
-        $scope.ldata = {};
-        $scope.addlocationdata = function (location,userForm) {
+    function inquiryCtrl($scope, $http, $rootScope, localStorageService, toaster, $state,$filter) {
+
+        function clearForm(){
+            $scope.booking={
+                'customername':'',
+                'bridename':'',
+                'brideDOB':'',
+                'groomname':'',
+                'groomDOB':'',
+                'eventdate':'',
+                'numberOfDays':'',
+                'eventenddate':'',
+                'phonenumber':'',
+                'emailid':'',
+                'eventname':'',
+                'panadharno':'',
+                'address':'',
+                'totalamount':'',
+                'addOnServices':'',
+                'bookingType':'1'	   
+            };
+        }
+        $scope.popup1 = {
+            opened: false
+        };
+        $scope.popup2 = {
+            opened: false
+        };
+        $scope.popup3 = {
+            opened: false
+        };
+        $scope.popup4 = {
+            opened: false
+        };                
+        $scope.open1 = function () {
+            $scope.popup1.opened = true;
+        };
+        $scope.open2 = function () {
+            $scope.popup2.opened = true;
+        };
+        $scope.open3 = function () {
+            $scope.popup3.opened = true;
+        };   
+        $scope.open4 = function () {
+            $scope.popup4.opened = true;
+        };              
+        // $scope.altInputFormats = ['M!/d!/yyyy'];
+        $scope.dateOptions = {
+            dateDisabled: false,
+            formatYear: 'yyyy/MM/dd',
+            maxDate: new Date(2020, 5, 22),
+            minDate: new Date(),
+            startingDay: 1
+          };   
+          $scope.dateOptions1 = {
+            dateDisabled: false,
+            formatYear: 'yyyy/MM/dd',
+            maxDate: new Date(),
+            minDate: new Date(1940, 5, 22),
+            startingDay: 1
+          };          
+          $scope.addEnquiry =function(userForm){
             $scope.submitted = true;
             if (userForm.$valid) {
-                $http.post($rootScope.ApiUrl + 'addCategory', location).then(function (data) {
-                    
-                    if (data.data.status) {
-                        toaster.pop('success', "Success", "Category addded successfully.");
-                        $scope.ldata.package='';
-                        $scope.ldata.title='';
-                        $scope.ldata.field1='';
-                        $scope.ldata.field2='';
-                        $scope.ldata.field3='';
-                        $scope.ldata.field4='';
-                        $scope.ldata.field5='';
-                       userForm.$setPristine();
-                        $scope.getCategory()
-                    } else {
-                        toaster.pop('error', "Error", "Error While adding Category.");
+                $scope.booking.brideDOB=angular.copy($filter('date')($scope.booking.brideDOB, "yyyy-MM-dd"));   
+                $scope.booking.groomDOB=angular.copy($filter('date')($scope.booking.groomDOB, "yyyy-MM-dd"));
+                $scope.booking.eventdate=angular.copy($filter('date')($scope.booking.eventdate, "yyyy-MM-dd"));           
+                $scope.booking.eventenddate=angular.copy($filter('date')($scope.booking.eventenddate, "yyyy-MM-dd")); 
+                $http.post($rootScope.ApiUrl + 'booking', $scope.booking).then(function (data) {       
+                    if (data) {
+                        toaster.pop('success', "Success", "Inquiry addded successfully.");
+                        clearForm();
+                        userForm.$setPristine();
+                        $scope.enquiryData(); 
                     }
-                    
-                    
                 });
             }
-        };
-        function setValue() {
+          };    
+          function setValue() {
             $scope.viewby = 5;
-            $scope.totalItems = $scope.categories.length;
+            $scope.totalItems = $scope.Inquiry.length;
             $scope.currentPage = 1;
             $scope.itemsPerPage = $scope.viewby;
             $scope.maxSize = 5; //Number of pager buttons to show                    
@@ -47,39 +99,24 @@
         $scope.setItemsPerPage = function (num) {
             $scope.itemsPerPage = num;
             $scope.currentPage = 1; //reset to first page
-        }        
-        $scope.deletelocation = function(x){
-            $scope.delobj = x;
-            console.log("delete record",x);
-            $('#deletemodel').modal('show');
-            };
+        }
+        $scope.view = function (x) {
+            $scope.viewData = x;
+            $('#viewmodel').modal('show');
+        }
 
-        $scope.getCategory = function () {
-            $http.get($rootScope.ApiUrl + 'getCategory').then(function (data) {
-                if(data){
-                    $scope.categories = angular.copy(data.data.data);
-                    if($scope.categories)
-                    { setValue()}
+        $scope.enquiryData = function () {
+            //FETCH BOOKING DETAILS
+            $http.get($rootScope.ApiUrl + 'getenquiryDetails').then(function (data) {
+                console.log('booking info ----------------------', data);
+                if (data.data) {
+                    $scope.Inquiry=angular.copy(data.data);
+                    if($scope.Inquiry)
+                    { setValue()}                   
                 }
             });
-        }
-        $scope.view=function(data){            
-            $('#viewmodel').modal('show');
-            $scope.viewData=angular.copy(data);
-        }
-        $scope.deletelocationrecord = function(customer){
-            $http.post($rootScope.ApiUrl + 'deleteCategory', customer).then(function (data) {
-                
-                if (data.data.status) {
-                    toaster.pop('success', "Success", "Category Deleted successfully.");                
-                    $scope.getCategory()
-                } else {
-                    toaster.pop('error', "Error", "Error While deleting Category.");
-                }
-                $('#deletemodel').modal('hide');
-            });           
-        };        
-        $scope.getCategory()
-
+        };
+        clearForm();
+        $scope.enquiryData();                
     }
 })();

@@ -15,6 +15,7 @@ $app = new Slim\App();
 
 $app->add(function ($req, $res, $next) {
     $response = $next($req, $res);
+   
     return $response
             ->withHeader('Access-Control-Allow-Headers', 'X-Requested-With,Content-Type,Accept,Origin,Authorization,process-data,Auth');
 });
@@ -25,6 +26,7 @@ $app->add(function ($req, $res, $next) {
 require './api/utils.php';
 require './api/dbHandler.php';
 require './api/user.php';
+require './api/booking.php';
 require './api/dbConnect.php';
 
 $app->run();
