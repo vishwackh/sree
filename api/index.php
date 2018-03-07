@@ -27,6 +27,7 @@ require './api/utils.php';
 require './api/dbHandler.php';
 require './api/user.php';
 require './api/booking.php';
+require './api/event.php';
 require './api/dbConnect.php';
 
 $app->run();

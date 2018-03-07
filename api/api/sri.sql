@@ -31,7 +31,8 @@ CREATE TABLE IF NOT EXISTS `booking` (
   `eventdate` timestamp,   
   `numberOfDays` int(11),
   `eventenddate` timestamp,
-  `bookingType` int(11) NOT NULL DEFAULT '0',
+  `bookingType` int(11) NOT NULL DEFAULT '0', 
+  `isBookingCancel` int(11) NOT NULL DEFAULT '0', 
   `phonenumber` char(15) NOT NULL,
   `emailid` varchar(60) NOT NULL,
   `addOnServices` text,
@@ -44,7 +45,17 @@ CREATE TABLE IF NOT EXISTS `booking` (
   PRIMARY KEY (`booking_Id`)
 );
 
-
+CREATE TABLE IF NOT EXISTS `bookingCancelation` (
+  `cancel_Id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `booking_Id` int(11) not null,
+  `paidamount` double not null,
+  `refundStatus` int(11) NOT NULL DEFAULT '0', 
+  `refundAmount` double not null,
+  `createdTime`datetime NOT NULL,
+  `modifiedTime` timestamp NOT NULL,
+ PRIMARY KEY (`cancel_Id`),
+  KEY(`cancel_Id`,`booking_Id`)
+);
 CREATE TABLE IF NOT EXISTS `payment` (
   `payment_Id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `booking_Id` int(11) not null,
@@ -57,5 +68,24 @@ CREATE TABLE IF NOT EXISTS `payment` (
   `modifiedTime` timestamp NOT NULL,
   PRIMARY KEY (`payment_Id`),
   KEY(`payment_Id`,`booking_Id`)
+);
+
+
+CREATE TABLE IF NOT EXISTS `event` (
+  `event_Id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `eventname` varchar(120) not null,
+  `description` text,
+  `eventdate` datetime NOT NULL,
+  `createdTime` datetime NOT NULL,
+  `modifiedTime` timestamp NOT NULL,
+  PRIMARY KEY (`event_Id`)
+);
+
+CREATE TABLE IF NOT EXISTS `eventFeedback` (
+  `feedback_Id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `customername` varchar(120) not null,
+  `feedback` text,
+  `createdTime` datetime NOT NULL,
+  PRIMARY KEY (`feedback_Id`)
 );
 
