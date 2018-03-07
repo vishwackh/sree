@@ -44,21 +44,30 @@
                     <span>Booking Details</span>
                 </a>
             </li>
-
+            <li data-toggle="tooltip" data-placement="right" title="bookingCancellation" ng-class="{active:$state.includes('dashbord.bookingCancellation')}">
+                <a ui-sref="dashbord.bookingCancellation">
+                    <i class="fa fa-fw fa-picture-o"></i>
+                    <span>Cancellation Details</span>
+                </a>
+            </li>            
             <li data-toggle="tooltip" data-placement="right" title="Payment" ng-class="{active:$state.includes('dashbord.Payment')}">
                 <a ui-sref="dashbord.Payment">
                     <i class="fa fa-fw fa-picture-o"></i>
                     <span>Payment</span>
                 </a>
-            </li>
-
-            <li data-toggle="tooltip" data-placement="right" title="bookingCancellation" ng-class="{active:$state.includes('dashbord.bookingCancellation')}">
-                <a ui-sref="dashbord.bookingCancellation">
+            </li>   
+            <li data-toggle="tooltip" data-placement="right" title="events" ng-class="{active:$state.includes('dashbord.events')}">
+                <a ui-sref="dashbord.events">
                     <i class="fa fa-fw fa-picture-o"></i>
-                    <span>Booking Cancellation</span>
+                    <span>Events</span>
                 </a>
-            </li>            
-          
+            </li>    
+            <li data-toggle="tooltip" data-placement="right" title="events" ng-class="{active:$state.includes('dashbord.eventFeedback')}">
+                <a ui-sref="dashbord.eventFeedback">
+                    <i class="fa fa-fw fa-picture-o"></i>
+                    <span>Event Feedback</span>
+                </a>
+            </li>                            
         </ul>
     </div>
     <!-- /.navbar-collapse -->

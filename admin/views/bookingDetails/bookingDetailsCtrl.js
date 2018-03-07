@@ -5,34 +5,37 @@
         .module('emsAdmin')
         .controller('bookingDetailsCtrl', bookingDetailsCtrl);
 
-    bookingDetailsCtrl.$inject = ['$scope', '$http', '$rootScope', 'localStorageService', 'toaster', '$state','$filter'];
+    bookingDetailsCtrl.$inject = ['$scope', '$http', '$rootScope', 'localStorageService', 'toaster', '$state', '$filter'];
 
     /* @ngInject */
-    function bookingDetailsCtrl($scope, $http, $rootScope, localStorageService, toaster, $state,$filter) {
-        function clearForm(){
-            $scope.booking={
-                'customername':'',
-                'bridename':'',
-                'brideDOB':'',
-                'groomname':'',
-                'groomDOB':'',
-                'eventdate':'',
-                'numberOfDays':'',
-                'eventenddate':'',
-                'phonenumber':'',
-                'emailid':'',
-                'eventname':'',
-                'panadharno':'',
-                'address':'',
-                'totalamount':'',
-                'addOnServices':'',
-                'bookingType':'2',
-                'paidamount':'',
-                'paymentType':'',
-                'chequeno':'',
-                'chequeURL':'',
-                'balanceamount':''				
-            };	
+    function bookingDetailsCtrl($scope, $http, $rootScope, localStorageService, toaster, $state, $filter) {
+        function clearForm() {
+            $scope.booking = {
+                'customername': '',
+                'bridename': '',
+                'brideDOB': '',
+                'groomname': '',
+                'groomDOB': '',
+                'eventdate': '',
+                'numberOfDays': '',
+                'eventenddate': '',
+                'phonenumber': '',
+                'emailid': '',
+                'eventname': '',
+                'panadharno': '',
+                'address': '',
+                'totalamount': '',
+                'addOnServices': '',
+                'bookingType': '2',
+                'paidamount': '',
+                'paymentType': '',
+                'chequeno': '',
+                'chequeURL': '',
+                'balanceamount': ''
+            };
+        }
+        $scope.clear = function(){
+            clearForm() 
         }
         $scope.popup1 = {
             opened: false
@@ -45,7 +48,7 @@
         };
         $scope.popup4 = {
             opened: false
-        };                
+        };
         $scope.open1 = function () {
             $scope.popup1.opened = true;
         };
@@ -54,10 +57,10 @@
         };
         $scope.open3 = function () {
             $scope.popup3.opened = true;
-        };   
+        };
         $scope.open4 = function () {
             $scope.popup4.opened = true;
-        };              
+        };
         // $scope.altInputFormats = ['M!/d!/yyyy'];
         $scope.dateOptions = {
             dateDisabled: false,
@@ -65,32 +68,77 @@
             maxDate: new Date(2020, 5, 22),
             minDate: new Date(),
             startingDay: 1
-          };   
-          $scope.dateOptions1 = {
+        };
+        $scope.dateOptions1 = {
             dateDisabled: false,
             formatYear: 'yyyy/MM/dd',
             maxDate: new Date(),
             minDate: new Date(1940, 5, 22),
             startingDay: 1
-          };          
-          $scope.addbooking =function(userForm){
+        };
+        $scope.updatemodal = function (x) {
+            $scope.booking = x;
+            $scope.booking.brideDOB = angular.copy(new Date(x.brideDOB));
+            $scope.booking.groomDOB = angular.copy(new Date(x.groomDOB));
+            $scope.booking.eventdate = angular.copy(new Date(x.eventdate));
+            $scope.booking.eventenddate = angular.copy(new Date(x.eventenddate));
+            $('#editmodel').modal('show');
+        }
+        $scope.delInquiry = undefined;
+        $scope.cancelmodal = function (x) {
+            $scope.delInquiry = x;
+            $('#deletemodel').modal('show');
+        }
+        $scope.addbooking = function (userForm) {
             $scope.submitted = true;
             if (userForm.$valid) {
-                $scope.booking.brideDOB=angular.copy($filter('date')($scope.booking.brideDOB, "yyyy-MM-dd"));   
-                $scope.booking.groomDOB=angular.copy($filter('date')($scope.booking.groomDOB, "yyyy-MM-dd"));
-                $scope.booking.eventdate=angular.copy($filter('date')($scope.booking.eventdate, "yyyy-MM-dd"));           
-                $scope.booking.eventenddate=angular.copy($filter('date')($scope.booking.eventenddate, "yyyy-MM-dd")); 
-                $http.post($rootScope.ApiUrl + 'booking', $scope.booking).then(function (data) {       
+                $scope.booking.brideDOB = angular.copy($filter('date')($scope.booking.brideDOB, "yyyy-MM-dd"));
+                $scope.booking.groomDOB = angular.copy($filter('date')($scope.booking.groomDOB, "yyyy-MM-dd"));
+                $scope.booking.eventdate = angular.copy($filter('date')($scope.booking.eventdate, "yyyy-MM-dd"));
+                $scope.booking.eventenddate = angular.copy($filter('date')($scope.booking.eventenddate, "yyyy-MM-dd"));
+                $http.post($rootScope.ApiUrl + 'booking', $scope.booking).then(function (data) {
                     if (data) {
-                        toaster.pop('success', "Success", "Payment details Inserted successfully");
+                        toaster.pop('success', "Success", "Booking details Inserted successfully");
                         clearForm();
                         userForm.$setPristine();
-                        $scope.bookingData(); 
+                        $scope.bookingData();
                     }
                 });
             }
-          };    
-          function setValue() {
+        };
+        $scope.updatebooking = function (userForm) {
+            $scope.submitted = true;
+            if (userForm.$valid) {
+                $scope.booking.brideDOB = angular.copy($filter('date')($scope.booking.brideDOB, "yyyy-MM-dd"));
+                $scope.booking.groomDOB = angular.copy($filter('date')($scope.booking.groomDOB, "yyyy-MM-dd"));
+                $scope.booking.eventdate = angular.copy($filter('date')($scope.booking.eventdate, "yyyy-MM-dd"));
+                $scope.booking.eventenddate = angular.copy($filter('date')($scope.booking.eventenddate, "yyyy-MM-dd"));
+                $http.post($rootScope.ApiUrl + 'updateBooking', $scope.booking).then(function (data) {
+                    if (data) {
+                        toaster.pop('success', "Success", "Booking details updated successfully");
+                        clearForm();
+                        userForm.$setPristine();
+                        $scope.bookingData();
+                    }
+                    $('#editmodel').modal('hide');
+                });
+            }
+        };
+
+        $scope.cancelBooking = function () {
+            var data = {
+                'booking_Id': $scope.delInquiry.booking_Id
+            };
+            $http.post($rootScope.ApiUrl + 'bookingCanel', data).then(function (data) {
+                if (data) {
+                    toaster.pop('success', "Success", "Booking canceled successfully.");
+                    $scope.bookingData();
+                }
+                $('#deletemodel').modal('hide');
+            });
+        }
+
+        function setValue() {
             $scope.viewby = 5;
             $scope.totalItems = $scope.Inquiry.length;
             $scope.currentPage = 1;
@@ -114,14 +162,15 @@
             //FETCH BOOKING DETAILS
             $http.get($rootScope.ApiUrl + 'getbookingDetails').then(function (data) {
                 if (data.data) {
-                    $scope.Inquiry=angular.copy(data.data);
-                    if($scope.Inquiry)
-                    { setValue()} 
+                    $scope.Inquiry = angular.copy(data.data);
+                    if ($scope.Inquiry) {
+                        setValue()
+                    }
                 }
             });
         };
         clearForm();
-        $scope.bookingData(); 
+        $scope.bookingData();
 
         $scope.bookingHall = function () {
             console.log("booking function triggered");
@@ -139,7 +188,7 @@
             $scope.booking.panadharno = "bsmpk7206r";
             $scope.booking.totalamount = 100000;
             $scope.booking.address = "acdfa kasdf asdfj fasd ";
-            $scope.booking.bookingType = 2;   //if it is enquiry form assign bookingtype=1 same function it will work
+            $scope.booking.bookingType = 2; //if it is enquiry form assign bookingtype=1 same function it will work
             $scope.booking.addOnServices = "1,6,7,8";
 
             $scope.booking.paidamount = 30000;

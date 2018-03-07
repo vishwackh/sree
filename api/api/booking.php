@@ -362,3 +362,12 @@ $ExecutionDetails1['query']	= $Database->getQRY($Insrtqry1, $insertParams1);
         
         echo json_encode("Booking cancelation successfully");
         });
+$app->get('/getBookingCancelation', function ($request, $response, $args) {
+    $result =  new stdClass();
+    $Database=new Database();
+$Database->query("SELECT * FROM bookingCancelation ");
+$Database->execute();
+$ExeceptionDetails = $Database->getExceptionDetails();
+$QryOutput=$Database->resultset();
+    echo json_encode($QryOutput);
+});        
