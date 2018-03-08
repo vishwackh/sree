@@ -128,7 +128,7 @@ $app->post('/custFeedback', function ($request, $response, $args) {
     $param =  $request->getParsedBody();
     
     $customername = $param['customername'];
-    $description = $param['feedback'];
+    $feedback = $param['feedback'];
     
     $CurTime = time();
     
@@ -136,10 +136,9 @@ $app->post('/custFeedback', function ($request, $response, $args) {
     
     $Database->beginTransaction();
     
-    $Insrtqry="INSERT INTO event (customername,feedback,createdTime
-    ) VALUES (:customername, :feedback, :eventdate,FROM_UNIXTIME(:CreadtedTime))";
-                
-    $insertParams= array('customername'=>$customername,'feedback'=>$feedback,'CreadtedTime'=>$CurTime);
+    $Insrtqry="INSERT INTO eventFeedback (customername,feedback,createdTime
+    ) VALUES (:customername,:feedback,FROM_UNIXTIME(:createdTime))"; 
+    $insertParams= array('customername'=>$customername,'feedback'=>$feedback,'createdTime'=>$CurTime);
     
     $ExecutionDetails = $Database->executeQuery($Insrtqry, $insertParams);
     $ExecutionDetails['query']	= $Database->getQRY($Insrtqry, $insertParams);

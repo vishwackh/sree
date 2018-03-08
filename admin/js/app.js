@@ -6,6 +6,7 @@
             'ui.router',
             'ui.bootstrap',
             'toaster',
+            'multipleDatePicker',
             'LocalStorageModule'
         ]).directive('fileModel', ['$parse', function ($parse) {
             return {
@@ -118,7 +119,7 @@
         })
         .run(function ($rootScope) {
         //  $rootScope.ApiUrl = "http://svarks.in/api/";
-           $rootScope.ApiUrl = "http://localhost:90/sree/api/";
+           $rootScope.ApiUrl = "http://localhost:81/sree/api/";
         });
 
 })();

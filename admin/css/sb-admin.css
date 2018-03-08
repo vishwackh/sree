@@ -361,3 +361,22 @@ ul.alert-dropdown {
     color: #ff173c; }
     .single li:last-child a {
     border-bottom: 0; }
+
+    /*apply colors if not selected, if selected I want the default selected css*/
+.picker-day.holiday:not(.picker-selected){
+    background-color: #00ffa2;
+    color: #fff;
+}
+
+/*if my holiday isn't clickable (it's the case in the demo)*/
+.picker-day.holiday.picker-off{
+    background-color: #00a267;
+    color: #fff;
+    cursor: default;
+}
+
+/*my birthday, is clickable*/
+.picker-day.birthday:not(.picker-selected){
+    background-color: #ded100;
+    color: #000;
+}

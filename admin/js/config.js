@@ -36,7 +36,17 @@
                     url: '/bookingCancellation',
                     templateUrl: 'views/bookingCancellation/bookingCancellation.html',
                     controller: 'bookingCancellationCtrl'
-                })                                               
+                }) 
+                .state('dashbord.events', {
+                    url: '/events',
+                    templateUrl: 'views/events/events.html',
+                    controller: 'eventsCtrl'
+                })
+                .state('dashbord.feedback', {
+                    url: '/feedback',
+                    templateUrl: 'views/feedback/feedback.html',
+                    controller: 'feedbackCtrl'
+                })                                                                              
                 .state('dashbord.home', {
                     url: '/home',
                     templateUrl: 'views/dashbord/home.html',
