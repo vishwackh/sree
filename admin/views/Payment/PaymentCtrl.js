@@ -55,7 +55,7 @@
                     $scope.bookingDetail = angular.copy(data.data);
                     if ($scope.bookingDetail) {
                         angular.forEach($scope.bookingDetail, function (value) {
-                            $scope.totalPaid = +value.paidamount;
+                            $scope.totalPaid = $scope.totalPaid + parseInt(value.paidamount);
                         });
                         setValue1()
                     }

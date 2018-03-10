@@ -391,7 +391,7 @@ $app->post('/getPaymentDetails', function ($request, $response, $args) {
 });
 $app->post('/addPaymentDetails', function ($request, $response, $args) {
     $result =  new stdClass();
-    
+    $CurTime = time();
     
     $param =  $request->getParsedBody();
     $Database=new Database();
