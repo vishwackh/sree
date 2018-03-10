@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-lg-12">
         <h1 class="page-header">
-            Dashboard  
+            Dashboard
         </h1>
         <ol class="breadcrumb">
             <li class="active">
@@ -12,10 +12,89 @@
 </div>
 <div class="row">
     <div class="col-md-6">
-            <multiple-date-picker disallow-back-past-months="true" highlight-days="highlightDays"/>
-   </div>   
-   <div class="col-md-6">
+            <div class="col-md-12">
+        <multiple-date-picker disallow-back-past-months="true" ng-model="selectedDays3" highlight-days="highlightDays" day-click="oneDaySelectionOnly" />        
+       </div>
+                <div class="clearfix">&nbsp;</div>
+                <div class="clearfix">&nbsp;</div>
+                <div class="col-md-12">
+                        <button type="button" class="btn btn-success">&nbsp;</button>  Booking &nbsp;&nbsp;
+                      
+                        <button type="button" class="btn btn-warning">&nbsp;</button>  Enquiry &nbsp;&nbsp;
 
-   </div>  
+                        <button type="button" class="btn btn-primary">&nbsp;</button>  Selected
+                </div>    
+                
     </div>
-    
+    <div class="col-md-6">
+
+        <div class="panel panel-primary" ng-if="selectedData[0]">
+            <!-- Default panel contents -->
+            <div class="panel-heading">
+                <b>Customer Name : {{selectedData[0].customername}}</b>
+            </div>
+
+            <!-- List group -->
+            <ul class="list-group">
+                <li class="list-group-item">
+                    Event Name
+                    <div class="material-switch pull-right">
+                        {{selectedData[0].eventname}}
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    Event Date
+                    <div class="material-switch pull-right">
+                        {{selectedData[0].eventdate}}
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    Event End Date
+                    <div class="material-switch pull-right">
+                        {{selectedData[0].eventenddate}}
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    Phone Number
+                    <div class="material-switch pull-right">
+                        {{selectedData[0].phonenumber}}
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    Email Id
+                    <div class="material-switch pull-right">
+                        {{selectedData[0].emailid}}
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    Address
+                    <div class="material-switch pull-right">
+                        {{selectedData[0].address}}
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    PAN/Adharno
+                    <div class="material-switch pull-right">
+                        {{selectedData[0].panadharno}}
+                    </div>
+                </li>
+
+                <li class="list-group-item">
+                    Total Amount
+                    <div class="material-switch pull-right">
+                        {{selectedData[0].totalamount}}
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+
+
+</div>
+
+</div>
+
+</div>

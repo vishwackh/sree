@@ -242,12 +242,12 @@
                             <th>Event start Date</th>
                             <th>Event End Date</th>
                             <th>View</th>
+                            <th>Edit</th>
                             <th>Cancel</th>
-                            <th>Delete</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="cat in Inquiry.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))">
+                        <tr ng-repeat="cat in Inquiry.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))" ng-if="cat.isBookingCancel !=1">
                             <td>{{((currentPage * itemsPerPage) - itemsPerPage) + ($index+1)}}</td>
                             <td>{{cat.customername}}</td>
                             <td>{{cat.eventname}}</td>

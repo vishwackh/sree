@@ -51,6 +51,7 @@ CREATE TABLE IF NOT EXISTS `bookingCancelation` (
   `paidamount` double not null,
   `refundStatus` int(11) NOT NULL DEFAULT '0', 
   `refundAmount` double not null,
+  `eventdate` timestamp,
   `createdTime`datetime NOT NULL,
   `modifiedTime` timestamp NOT NULL,
  PRIMARY KEY (`cancel_Id`),

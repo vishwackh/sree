@@ -127,7 +127,8 @@
 
         $scope.cancelBooking = function () {
             var data = {
-                'booking_Id': $scope.delInquiry.booking_Id
+                'booking_Id': $scope.delInquiry.booking_Id,
+                'eventdate': $scope.delInquiry.eventdate
             };
             $http.post($rootScope.ApiUrl + 'bookingCanel', data).then(function (data) {
                 if (data) {
@@ -171,39 +172,5 @@
         };
         clearForm();
         $scope.bookingData();
-
-        $scope.bookingHall = function () {
-            console.log("booking function triggered");
-            $scope.booking.customername = "abcd";
-            $scope.booking.bridename = "abcd";
-            $scope.booking.brideDOB = "1989-09-06";
-            $scope.booking.groomname = "aaaaa"
-            $scope.booking.groomDOB = "1989-09-06"
-            $scope.booking.eventdate = "2013-03-04";
-            $scope.booking.numberOfDays = 2;
-            $scope.booking.eventenddate = "2018-03-07";
-            $scope.booking.phonenumber = "9535184724";
-            $scope.booking.emailid = "abcd@gmail.com"
-            $scope.booking.eventname = "Marriage";
-            $scope.booking.panadharno = "bsmpk7206r";
-            $scope.booking.totalamount = 100000;
-            $scope.booking.address = "acdfa kasdf asdfj fasd ";
-            $scope.booking.bookingType = 2; //if it is enquiry form assign bookingtype=1 same function it will work
-            $scope.booking.addOnServices = "1,6,7,8";
-
-            $scope.booking.paidamount = 30000;
-            $scope.booking.paymentType = "cash";
-            $scope.booking.chequeno = "";
-            $scope.booking.chequeURL = "";
-            $scope.booking.balanceamount = $scope.booking.totalamount - $scope.booking.paidamount;
-            console.log("booking object==>", $scope.booking);
-
-            $http.post($rootScope.ApiUrl + 'booking', $scope.booking).then(function (data) {
-                console.log('booking info ----------------------', data);
-                if (data.data.status) {
-                    console.log("login");
-                }
-            });
-        };
     }
 })();

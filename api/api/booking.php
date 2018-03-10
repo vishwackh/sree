@@ -100,7 +100,7 @@ if($ExecutionDetails['stat'])
     echo json_encode("Insertion failure..");
 }
 
-if($bookingType === 2){
+if($bookingType == 2){
     $booking_Id=$Database->lastInsertId();
     $paidamount = $param['paidamount'];
 $paymentType = $param['paymentType'];
@@ -295,6 +295,7 @@ $app->post('/updateBooking', function ($request, $response, $args) {
         
         $param =  $request->getParsedBody();
         $booking_Id=$param['booking_Id'];
+        $eventdate=$param['eventdate'];
         
         //bookingType value should be either 1 or 2 i.e 
         //if it is enquiry pass 1 
@@ -336,11 +337,11 @@ $app->post('/updateBooking', function ($request, $response, $args) {
             
 
 
-            $Insrtqry1="INSERT INTO bookingCancelation (booking_Id, paidamount, refundAmount,createdTime,modifiedTime
-) VALUES (:booking_Id, :paidamount, :refundAmount,FROM_UNIXTIME(:CurTime),FROM_UNIXTIME(:ModifiedTime))";
+            $Insrtqry1="INSERT INTO bookingCancelation (booking_Id, paidamount, refundAmount,eventdate,createdTime,modifiedTime
+) VALUES (:booking_Id, :paidamount, :refundAmount,:eventdate,FROM_UNIXTIME(:CurTime),FROM_UNIXTIME(:ModifiedTime))";
 	        
 $insertParams1= array('booking_Id'=>$booking_Id,'paidamount'=>$paidamount,'refundAmount'=>$paidamount, 
-'CurTime'=>$CurTime,'ModifiedTime'=>$CurTime);
+'eventdate'=>$eventdate,'CurTime'=>$CurTime,'ModifiedTime'=>$CurTime);
 
 $ExecutionDetails1 = $Database->executeQuery($Insrtqry1, $insertParams1);
 $ExecutionDetails1['query']	= $Database->getQRY($Insrtqry1, $insertParams1);
@@ -371,3 +372,58 @@ $ExeceptionDetails = $Database->getExceptionDetails();
 $QryOutput=$Database->resultset();
     echo json_encode($QryOutput);
 });        
+
+$app->post('/getPaymentDetails', function ($request, $response, $args) {
+    $result =  new stdClass();
+    
+    
+    $param =  $request->getParsedBody();
+    $booking_Id=$param['booking_Id'];
+    $Database=new Database();
+    $Database->query("SELECT * FROM payment WHERE booking_Id=:booking_Id");
+    $DBParameters["booking_Id"]=$booking_Id;
+    
+    $Database->bindParameters($DBParameters);
+    $Database->execute();
+    $ExeceptionDetails = $Database->getExceptionDetails();
+    $QryOutput=$Database->resultset();
+        echo json_encode($QryOutput);
+});
+$app->post('/addPaymentDetails', function ($request, $response, $args) {
+    $result =  new stdClass();
+    
+    
+    $param =  $request->getParsedBody();
+    $Database=new Database();
+    $booking_Id=$param['booking_Id'];
+    $paidamount = $param['paidamount'];
+    $paymentType = $param['paymentType'];
+    $chequeno = $param['chequeno'];
+    $chequeURL = $param['chequeURL'];
+    $balanceamount = $param['balanceamount'];
+    $Database->beginTransaction();
+    
+    $Insrtqry1="INSERT INTO payment (booking_Id, paidamount, paymentType, chequeno, chequeURL, balanceamount,createdTime,modifiedTime
+    ) VALUES (:booking_Id, :paidamount, :paymentType, :chequeno, :chequeURL,:balanceamount,FROM_UNIXTIME(:CurTime),FROM_UNIXTIME(:ModifiedTime))";
+                
+    $insertParams1= array('booking_Id'=>$booking_Id,'paidamount'=>$paidamount,'paymentType'=>$paymentType, 
+    'chequeno'=>$chequeno,'chequeURL'=>$chequeURL,'balanceamount'=>$balanceamount,'CurTime'=>$CurTime,'ModifiedTime'=>$CurTime);
+    
+    $ExecutionDetails1 = $Database->executeQuery($Insrtqry1, $insertParams1);
+    $ExecutionDetails1['query'] = $Database->getQRY($Insrtqry1, $insertParams1);
+    
+    
+    if($ExecutionDetails1['stat'])
+    {
+        // $Errors["Dialogue"]=2;
+        // GOTO ErrorInside;
+        echo "<pre>";
+        print_r($ExecutionDetails1);echo "</pre>";
+        echo json_encode("Insertion failure..");
+    }
+    
+    
+    $Database->endTransaction();
+    
+    echo json_encode("Payment details added successfully");
+});

@@ -43,7 +43,7 @@
                     <thead>
                         <tr>
                             <th>SL No</th>
-                            <th>Cancellation Id</th>
+                            <th>Event Date</th>
                             <th>Booking Id</th>
                             <th>Paid Amount</th>
                             <th>Refund Status</th>
@@ -55,12 +55,22 @@
                     <tbody>
                         <tr ng-repeat="cat in cancelDetails.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))">
                             <td>{{((currentPage * itemsPerPage) - itemsPerPage) + ($index+1)}}</td>
-                            <td>{{cat.cancel_Id}}</td>
+                            <td>{{cat.eventdate}}</td>
                             <td>{{cat.booking_Id}}</td>
                             <td>{{cat.paidamount}}</td>
-                            <td>{{cat.refundStatus}}</td>
-                            <td>{{cat.refundAmount}}</td>
-                            <td>{{cat.createdDate |timeago}}</td>
+                            <td>
+                                <span class="label label-warning" ng-if="cat.refundStatus == 0">Waiting for new booking</span>
+                                <span class="label label-success" ng-if="cat.refundStatus == 1">Eligible for refund</span>
+                            </td>
+                            <td>
+                               <span  class="label label-danger" ng-if="cat.refundStatus == 0">
+                                   <i class="fa fa-lock" aria-hidden="true"></i>
+                                </span>
+                               <span ng-if="cat.refundStatus == 1">
+                                   {{cat.refundAmount}}
+                               </span>
+                            </td>
+                            <td>{{cat.createdTime |timeago}}</td>
                             <td>{{cat.modifiedTime |timeago}}</td>
                         </tr>
                     </tbody>

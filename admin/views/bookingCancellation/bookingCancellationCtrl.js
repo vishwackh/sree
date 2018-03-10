@@ -12,7 +12,7 @@
 
         function setValue() {
             $scope.viewby = 5;
-            $scope.totalItems = $scope.Inquiry.length;
+            $scope.totalItems = $scope.cancelDetails.length;
             $scope.currentPage = 1;
             $scope.itemsPerPage = $scope.viewby;
             $scope.maxSize = 5; //Number of pager buttons to show                    

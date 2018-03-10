@@ -11,42 +11,7 @@
         </ol>
     </div>
 </div>
-<div class="row">
-    <div class="col-sm-offset-4 col-sm-4">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">Add New Payment</h3>
-            </div>
-            <div class="panel-body">
-                <form name="userForm" novalidate>
-                    <div class="form-group">
-                        <div class="form-row">
-                            <div class="form-group" ng-class="{ 'has-error' : !userForm.title.$valid && (userForm.title.$dirty || userForm.$submitted),'has-success' : userForm.title.$valid && (userForm.title.$dirty || submitted)}">
-                                <input type="text" name="title" class="form-control" ng-model="ldata.title" placeholder="Your title" ng-required="true">
-                                <p ng-show="userForm.title.$error.required && (userForm.title.$dirty || userForm.$submitted)" class="help-block">title is required.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="form-row" ng-class="{ 'has-error' : !userForm.description.$valid && (userForm.description.$dirty || userForm.$submitted),'has-success' : userForm.description.$valid && (userForm.description.$dirty || submitted)}">
-                            <textarea class="form-control" rows="5" name="description" class="form-control" ng-model="ldata.description" placeholder="Your Description"
-                                ng-required="true"></textarea>
-                            <p ng-show="userForm.description.$error.required && (userForm.description.$dirty || userForm.$submitted)" class="help-block">description is required.</p>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="form-row" ng-class="{ 'has-error' : !userForm.file.$valid && (userForm.file.$dirty || userForm.$submitted),'has-success' : userForm.file.$valid && (userForm.file.$dirty || submitted)}">
-                            <input type="file" id='file' name='file' multiple file-model="myFile" placeholder="Select Image" class="form-control" ng-required="true">
-                            <p ng-show="userForm.file.$error.required && (userForm.file.$dirty || userForm.$submitted)" class="help-block">URL is required.</p>
-                        </div>
-                    </div>
-                    <button type="submit" class="btn btn-primary" ng-disabled="message !=='Upload Image'" ng-click="userForm.$submitted=true;addImage(ldata,userForm)">{{message}}</button>
-                    <div class="clearfix">&nbsp;</div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
+
 
 <div class="clearfix">&nbsp;</div>
 <div class="row">
@@ -72,37 +37,37 @@
                 </div>
             </div>
 
-
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
                             <th>SL No</th>
-                            <th>Title</th>
-                            <th>Description</th>
-                            <th>ImageName</th>
-                            <th>Created Date</th>
+                            <th>Customer Name</th>
+                            <th>Event start Date</th>
+                            <th>Mobile</th>
+                            <th>Total Amount</th>
                             <th>View</th>
-                            <th>Delete</th>
+                            <th>Pay</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="cat in imageList.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))">
+                        <tr ng-repeat="cat in Inquiry.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))" ng-if="cat.isBookingCancel !=1">
                             <td>{{((currentPage * itemsPerPage) - itemsPerPage) + ($index+1)}}</td>
-                            <td>{{cat.title}}</td>
-                            <td>{{cat.description}}</td>
-                            <td>{{cat.url}}</td>
-                            <td>{{cat.createdDate |timeago}}</td>
+                            <td>{{cat.customername}}</td>
+                            <td>{{cat.eventdate}}</td>
+                            <td>{{cat.phonenumber }}</td>
+                            <td>{{cat.totalamount }}</td>
                             <td>
-                                <a class="btn" ng-click="viewImage(cat)">
-                                    <img ng-src="{{path}}{{cat.url}}" class="img-responsive" width="50" height="50" alt="image">
+                                <a class="btn btn-success" ng-click="view(cat)">
+                                    <em class="fa fa-eye"></em>
                                 </a>
                             </td>
                             <td>
-                                <a class="btn btn-danger" ng-click="deleteImage(cat)">
-                                    <em class="fa fa-trash"></em>
+                                <a class="btn btn-info" ng-click="paymodal(cat)">
+                                    <i class="fa fa-money" aria-hidden="true"></i>
                                 </a>
                             </td>
+
                         </tr>
                     </tbody>
                 </table>
@@ -113,8 +78,7 @@
 </div>
 
 
-
-<div id="deletemodel" class="modal fade" tabindex="-1" role="dialog" data-keyboard="false" data-backdrop="static">
+<div id="viewmodel" class="modal fade" tabindex="-1" role="dialog" data-keyboard="false" data-backdrop="static">
     <div class="modal-dialog">
 
         <!-- Modal content-->
@@ -123,43 +87,134 @@
                 <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
-                <h5 class="modal-title" id="exampleModalLabel">Confirm?</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Payment Details {{viewData.eventname}}</h5>
             </div>
             <div class="modal-body">
-                You Want to delete
-                <b class="help-block">{{delobj.name}} image</b>
-            </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="table-responsive">
+                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th>SL No</th>
+                                        <th>Paid Amount</th>
+                                        <th>Payment Type</th>
+                                        <th>Cheque no</th>
+                                        <th>Balance Amount</th>
+                                        <th>Payment Date</th>
 
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="cat in bookingDetail.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))" ng-if="cat.isBookingCancel !=1">
+                                        <td>{{((currentPage * itemsPerPage) - itemsPerPage) + ($index+1)}}</td>
+                                        <td>{{cat.paidamount}}</td>
+                                        <td>{{cat.paymentType}}</td>
+                                        <td>{{cat.chequeno?cat.chequeno:'N/A'}}</td>
+                                        <td>{{cat.balanceamount }}</td>
+                                        <td>{{cat.createdTime}}</td>
+
+                                    </tr>
+                                    <tfoot>
+                                        <tr>
+                                            <td colspan="2">Total Amount</td>
+                                            <td colspan="4">${{totalAmount}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2">Total Paid Amount</td>
+                                            <td  colspan="4">${{totalPaid}}</td>
+                                        </tr>
+                                        <tr>
+                                                <td colspan="2">Total Balance</td>
+                                                <td  colspan="4">${{bookingDetail[bookingDetail.length -1].balanceamount}}</td>
+                                            </tr>                                        
+                                    </tfoot>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="modal-footer">
-                <button class="btn btn-default" type="button" data-dismiss="modal">No</button>
-                <a class="btn btn-danger" ng-click="deleteImagerecord(delobj)">Yes</a>
+                <button class="btn btn-default" type="button" data-dismiss="modal">Close</button>
             </div>
         </div>
-    </div>
 
+    </div>
 </div>
 
-<div class="modal fade" id="viewmodel" tabindex="-1" role="dialog" data-keyboard="false" data-backdrop="static">
-    <div class="modal-dialog" role="document">
+<div id="paymodel" class="modal fade" tabindex="-1" role="dialog" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
                 <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
-                <h5 class="modal-title" id="exampleModalLabel">Watch Image</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Payment Details {{viewData.eventname}}</h5>
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-md-12">
-                        <img ng-src="{{image}}" class="img-responsive" style="max-width: 100%;" alt="image">
+                    <div class="col-sm-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Add New Booking Details</h3>
+                            </div>
+                            <div class="panel-body">
+                                <form name="userForm" novalidate>
+                                        <div class="form-group">
+                                                <label for="exampleInputEmail1">Total Balance</label>
+                                                <input type="text" class="form-control" id="exampleInputEmail1" ng-model="balance" readonly>
+                                              </div>                                    
+                                    <div class="form-group" ng-class="{ 'has-error' : !userForm.paymentType.$valid && (userForm.paymentType.$dirty || submitted)}">
+                                        <select name="paymentType" class="form-control" focus ng-model="payment.paymentType" ng-required="true">
+                                            <option value=''>Select payment Type</option>
+                                            <option value='cash'>Cash</option>
+                                            <option value='cheque'>cheque</option>
+                                        </select>
+                                        <p ng-show="userForm.paymentType.$error.required && (userForm.paymentType.$dirty || userForm.$submitted)" class="help-block">Select Catogory.</p>
+                                    </div>
+                                    <div class="form-group">
+                                            <div class="form-row">
+                                                <div class="form-group" ng-class="{ 'has-error' : !userForm.paidamount.$valid && (userForm.paidamount.$dirty || userForm.$submitted),'has-success' : userForm.paidamount.$valid && (userForm.paidamount.$dirty || submitted)}">
+                                                    <input type="text" valid-number name="paidamount" maxlength="10" class="form-control" ng-change="payment.balanceamount=(balance-payment.paidamount)"
+                                                        ng-model="payment.paidamount" placeholder="Paid Amount" ng-required="true">
+                                                    <p ng-show="userForm.paidamount.$error.required && (userForm.paidamount.$dirty || userForm.$submitted)" class="help-block">Paid Amount is required.</p>
+                                                </div>
+                                            </div>
+                                        </div>                                    
+                                    <div class="form-group" ng-if="payment.paymentType=='cheque'">
+                                        <div class="form-row">
+                                            <div class="form-group" ng-class="{ 'has-error' : !userForm.chequeno.$valid && (userForm.chequeno.$dirty || userForm.$submitted),'has-success' : userForm.chequeno.$valid && (userForm.chequeno.$dirty || submitted)}">
+                                                <input type="text" name="chequeno" maxlength="10" class="form-control" ng-model="payment.chequeno" placeholder="Cheque Number"
+                                                    ng-required="true">
+                                                <p ng-show="userForm.chequeno.$error.required && (userForm.chequeno.$dirty || userForm.$submitted)" class="help-block">Cheque Number is required.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="form-row">
+                                            <div class="form-group" ng-class="{ 'has-error' : !userForm.balanceamount.$valid && (userForm.balanceamount.$dirty || userForm.$submitted),'has-success' : userForm.balanceamount.$valid && (userForm.balanceamount.$dirty || submitted)}">
+                                                <input type="text" valid-number name="balanceamount" maxlength="10" class="form-control" ng-model="payment.balanceamount"
+                                                    readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                                <div class="clearfix">&nbsp;</div>
+
+                                <button type="submit" class="btn btn-primary" ng-click="addpay(userForm)">Pay Details</button>                                
+                            </div>
+                        </div>
+
                     </div>
                 </div>
-
             </div>
             <div class="modal-footer">
-                <button class="btn btn-default" type="button" data-dismiss="modal">Cancel</button>
-                <a class="btn btn-danger" type="button" data-dismiss="modal">Close</a>
+                <button class="btn btn-default" type="button" data-dismiss="modal">Close</button>
             </div>
         </div>
+
     </div>
 </div>

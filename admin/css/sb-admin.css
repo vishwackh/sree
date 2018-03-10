@@ -363,20 +363,29 @@ ul.alert-dropdown {
     border-bottom: 0; }
 
     /*apply colors if not selected, if selected I want the default selected css*/
-.picker-day.holiday:not(.picker-selected){
-    background-color: #00ffa2;
+.picker-day.booking:not(.picker-selected){
+    background-color: #398439;
     color: #fff;
 }
 
-/*if my holiday isn't clickable (it's the case in the demo)*/
-.picker-day.holiday.picker-off{
-    background-color: #00a267;
+/*if my booking isn't clickable (it's the case in the demo)*/
+.picker-day.booking.picker-off{
+    background-color: #398439;
     color: #fff;
     cursor: default;
 }
 
-/*my birthday, is clickable*/
-.picker-day.birthday:not(.picker-selected){
-    background-color: #ded100;
+/*my inquiry, is clickable*/
+.picker-day.inquiry:not(.picker-selected){
+    background-color: #f0ad4e;
     color: #000;
+}
+.picker-day.picker-selected {
+    background-color: #337ab7;
+    color: #fff;
+}
+.picker-day:not(.picker-off):not(.picker-empty):hover {
+    background-color: #337ab7;
+    color: #fff;
+    cursor: pointer;
 }
