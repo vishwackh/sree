@@ -27,7 +27,7 @@ class Database
 
         $dbConf['host']   = "127.0.0.1";
         $dbConf['user']   = "root";
-        $dbConf['pass']   ="root";
+        $dbConf['pass']   ="";
         $dbConf['dbname'] = "conventionhalldb";
 
 

@@ -119,7 +119,7 @@
         })
         .run(function ($rootScope) {
         //  $rootScope.ApiUrl = "http://svarks.in/api/";
-           $rootScope.ApiUrl = "http://localhost:81/sree/api/";
+           $rootScope.ApiUrl = "http://localhost:90/sree/api/";
         });
 
 })();

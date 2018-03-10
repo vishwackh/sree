@@ -18,7 +18,18 @@
         $scope.clear = function () {
             clearForm();
         }
- 
+        $scope.feedList = function () {
+            //FETCH BOOKING DETAILS
+            $http.get($rootScope.ApiUrl + 'getCustFeedback').then(function (data) {
+                console.log('booking info ----------------------', data);
+                if (data.data) {
+                    $scope.feedbackList = angular.copy(data.data);
+                    if ($scope.feedbackList) {
+                        setValue()
+                    }
+                }
+            });
+        };
 
         $scope.addEvent = function (userForm) {
             $scope.submitted = true;
@@ -28,7 +39,7 @@
                         toaster.pop('success', "Success", "Event addded successfully.");
                         clearForm();
                         userForm.$setPristine();
-                        $scope.feedbackList();
+                        $scope.feedList();
                     }
                 });
             }
@@ -50,7 +61,7 @@
                         toaster.pop('success', "Success", "Event Updated successfully.");
                         clearForm();
                         userForm.$setPristine();
-                        $scope.feedbackList();
+                        $scope.feedList();
                     }
                     $('#editmodel').modal('hide');
                 });
@@ -63,7 +74,7 @@
             $http.post($rootScope.ApiUrl + 'deleteEvent', data).then(function (data) {
                 if (data) {
                     toaster.pop('success', "Success", "Event deleted successfully.");
-                    $scope.feedbackList();
+                    $scope.feedList();
                 }
                 $('#deletemodel').modal('hide');
             });
@@ -88,19 +99,8 @@
             $('#viewmodel').modal('show');
         }
 
-        $scope.feedbackList = function () {
-            //FETCH BOOKING DETAILS
-            $http.get($rootScope.ApiUrl + 'getCustFeedback').then(function (data) {
-                console.log('booking info ----------------------', data);
-                if (data.data) {
-                    $scope.feedbackList = angular.copy(data.data);
-                    if ($scope.feedbackList) {
-                        setValue()
-                    }
-                }
-            });
-        };
+
         clearForm();
-        $scope.feedbackList();              
+        $scope.feedList();              
     }
 })();
