@@ -1,24 +1,26 @@
 <div class="row">
-        <div class="col-lg-12">
-            <ol class="breadcrumb">
-                <li>
-                    <i class="fa fa-dashboard"></i>
-                    <a ui-sref="dashbord.home">Dashboard</a>
-                </li>
-                <li class="active">
-                    <i class="fa fa-edit"></i> Feedback
-                </li>
-            </ol>
-        </div>
+    <div class="col-lg-12">
+        <ol class="breadcrumb">
+            <li>
+                <i class="fa fa-dashboard"></i>
+                <a ui-sref="dashbord.home">Dashboard</a>
+            </li>
+            <li class="active">
+                <i class="fa fa-edit"></i> Feedback
+            </li>
+        </ol>
     </div>
-    <div class="row">
-        <div class="col-sm-offset-4 col-sm-4">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Add New Feedback</h3>
-                </div>
-                <div class="panel-body">
-                    <form name="userForm" novalidate>
+</div>
+<div class="row">
+    <div class="col-sm-offset-3 col-sm-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Add New Feedback</h3>
+            </div>
+            <div class="panel-body">
+                <form name="userForm" novalidate>
+
+                    <div class="row">
                         <div class="form-group">
                             <div class="form-row">
                                 <div class="form-group" ng-class="{ 'has-error' : !userForm.customername.$valid && (userForm.customername.$dirty || userForm.$submitted),'has-success' : userForm.customername.$valid && (userForm.customername.$dirty || submitted)}">
@@ -27,8 +29,9 @@
                                 </div>
                             </div>
                         </div>
-      
-    
+                    </div>
+
+                    <div class="row">
                         <div class="form-group">
                             <div class="form-row" ng-class="{ 'has-error' : !userForm.feedback.$valid && (userForm.feedback.$dirty || userForm.$submitted),'has-success' : userForm.feedback.$valid && (userForm.feedback.$dirty || submitted)}">
                                 <textarea class="form-control" rows="5" name="feedback" class="form-control" ng-model="booking.feedback" placeholder="Your feedback"
@@ -36,64 +39,102 @@
                                 <p ng-show="userForm.feedback.$error.required && (userForm.feedback.$dirty || userForm.$submitted)" class="help-block">feedback is required.</p>
                             </div>
                         </div>
-    
-                        <div class="clearfix">&nbsp;</div>
-    
-                        <button type="submit" class="btn btn-primary" ng-click="addEvent(userForm)">Add Event</button>
-    
-    
-                    </form>
-                </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+  
+<ul ng-if="list" class="list-group">
+    <li ng-repeat="l in list" class="list-group-item">
+        {{l.category}}  
+        <div class="btn pull-right" style="padding-top: 0;" ng-click="revert($index,l.category)"><i class="fa fa-times-circle-o" aria-hidden="true"></i></div>
+        <div class="material-switch pull-right ">{{l.rating}}</div>
+
+    </li>
+</ul>
+                        </div>
+                    </div>
+                    <div class="row" ng-if="categories.length>0">
+                        <ng-form name="userForm1" novalidate>
+                            <div class="col-md-5">
+                                <div class="form-row" ng-class="{ 'has-error' : !userForm1.selCategory.$valid && (userForm1.selCategory.$dirty || userForm1.$submitted),'has-success' : userForm1.address.$valid && (userForm1.address.$dirty || submitted)}">
+                                    <select ng-model="cat.c" name="selCategory" class="form-control" ng-options="x for x in categories" ng-required="true"> 
+                                        <option value="">Select Category</option>
+                                    </select>
+                                    <p ng-show="userForm1.selCategory.$error.required && (userForm1.selCategory.$dirty || userForm1.$submitted)" class="help-block">Select Catogory.</p>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="form-row" ng-class="{ 'has-error' : !userForm1.selRating.$valid && (userForm1.selRating.$dirty || userForm1.$submitted),'has-success' : userForm1.address.$valid && (userForm1.address.$dirty || submitted)}">
+                                    <select ng-model="cat.r" name="selRating" class="form-control" ng-options="x for x in rating" ng-required="true">
+                                        <option value="">Select Rating</option>
+                                    </select>
+                                    <p ng-show="userForm1.selRating.$error.required && (userForm1.selRating.$dirty || userForm1.$submitted)" class="help-block">Select Rating.</p>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <button type="submit" class="btn btn-primary" ng-click="userForm1.$submitted=true;addrating(userForm1)">
+                                    <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                                </button>
+                            </div>
+                        </ng-form>
+                    </div>
+                    <div class="clearfix">&nbsp;</div>
+
+                    <button type="submit" class="btn btn-primary" ng-click="userForm.$submitted=true;addEvent(userForm)">Add Feedback</button>
+
+
+                </form>
             </div>
         </div>
     </div>
-    <div class="clearfix">&nbsp;</div>
-    <div class="row">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">
-                    <i class="fa fa-table"></i> Feedback Table</h3>
-            </div>
-            <div class="panel-body">
-                <div class="row">
-                    <div class="col-lg-3">
-                        <label for="select_num">Records at a time.</label>
-                        <div class="form-group">
-                            <select ng-model="viewby" id="select_num" class="form-control" ng-change="setItemsPerPage(viewby)">
-                                <option value="5">5</option>
-                                <option value="10">10</option>
-                                <option value="20">20</option>
-                                <option value="30">30</option>
-                                <option value="40">40</option>
-                                <option value="50">50</option>
-                            </select>
-                        </div>
+</div>
+<div class="clearfix">&nbsp;</div>
+<div class="row">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                <i class="fa fa-table"></i> Feedback Table</h3>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-lg-3">
+                    <label for="select_num">Records at a time.</label>
+                    <div class="form-group">
+                        <select ng-model="viewby" id="select_num" class="form-control" ng-change="setItemsPerPage(viewby)">
+                            <option value="5">5</option>
+                            <option value="10">10</option>
+                            <option value="20">20</option>
+                            <option value="30">30</option>
+                            <option value="40">40</option>
+                            <option value="50">50</option>
+                        </select>
                     </div>
                 </div>
-    
-                <div class="table-responsive">
-                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                        <thead>
-                            <tr>
-                                <th>SL No</th>
-                                <th>Customer name</th>
-                                <th>feedback</th>
-                                <th>View</th>
-                                <!-- <th>Edit</th>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>SL No</th>
+                            <th>Customer name</th>
+                            <th>feedback</th>
+                            <th>View</th>
+                            <!-- <th>Edit</th>
                                 <th>Delete</th> -->
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="cat in feedbackList.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))">
-                                <td>{{((currentPage * itemsPerPage) - itemsPerPage) + ($index+1)}}</td>
-                                <td>{{cat.customername}}</td>
-                                <td>{{cat.feedback }}</td>
-                                <td>
-                                    <a class="btn btn-success" ng-click="view(cat)">
-                                        <em class="fa fa-eye"></em>
-                                    </a>
-                                </td>
-                                <!-- <td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="cat in feedbackList.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))">
+                            <td>{{((currentPage * itemsPerPage) - itemsPerPage) + ($index+1)}}</td>
+                            <td>{{cat.customername}}</td>
+                            <td>{{cat.feedback }}</td>
+                            <td>
+                                <a class="btn btn-success" ng-click="view(cat)">
+                                    <em class="fa fa-eye"></em>
+                                </a>
+                            </td>
+                            <!-- <td>
                                     <a class="btn btn-warning" ng-click="updatemodal(cat)">
                                         <em class="fa fa-pencil"></em>
                                     </a>
@@ -103,146 +144,141 @@
                                         <em class="fa fa-trash"></em>
                                     </a>
                                 </td> -->
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()" class="pagination-sm" items-per-page="itemsPerPage"></pagination>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
-        </div>
-    
-    </div>
-    
-    
-    <div id="deletemodel" class="modal fade" tabindex="-1" role="dialog" data-keyboard="false" data-backdrop="static">
-        <div class="modal-dialog">
-    
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                    <h5 class="modal-title" id="exampleModalLabel">Confirm?</h5>
-                </div>
-                <div class="modal-body">
-                    <p>
-                        You Want to delete
-                        <b>"{{delInquiry.customername}}"</b>
-                    </p>
-    
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-default" type="button" data-dismiss="modal">No</button>
-                    <a class="btn btn-danger" ng-click="deleteEvent()">Yes</a>
-                </div>
-            </div>
-    
+            <pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()" class="pagination-sm" items-per-page="itemsPerPage"></pagination>
         </div>
     </div>
-    
-    <div id="viewmodel" class="modal fade" tabindex="-1" role="dialog" data-keyboard="false" data-backdrop="static">
-        <div class="modal-dialog">
-    
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                    <h5 class="modal-title" id="exampleModalLabel">Event Details
-                        <b>{{viewData.customername}}</b>
-                    </h5>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <!-- Category -->
-                            <div class="single category">
-                                <ul class="list-unstyled">
-                                    <li>
-                                        <a title="">Customer name
-                                            <span class="pull-right">{{viewData.customername}}</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a title="">feedback
-                                            <span class="pull-right">{{viewData.feedback}}</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                            <a title="">Created time
-                                                <span class="pull-right">{{viewData.createdTime |timeago}}</span>
-                                            </a>
-                                        </li>                                
-                                    <li>
-                                        <a title="">Modified time
-                                            <span class="pull-right">{{viewData.modifiedTime |timeago}}</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
+
+</div>
+
+
+<div id="deletemodel" class="modal fade" tabindex="-1" role="dialog" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <h5 class="modal-title" id="exampleModalLabel">Confirm?</h5>
+            </div>
+            <div class="modal-body">
+                <p>
+                    You Want to delete
+                    <b>"{{delInquiry.customername}}"</b>
+                </p>
+
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-default" type="button" data-dismiss="modal">No</button>
+                <a class="btn btn-danger" ng-click="deleteEvent()">Yes</a>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div id="viewmodel" class="modal fade" tabindex="-1" role="dialog" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <h5 class="modal-title" id="exampleModalLabel">Event Details
+                    <b>{{viewData.customername}}</b>
+                </h5>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <!-- Category -->
+                        <div class="single category">
+                            <ul class="list-unstyled">
+                                <li>
+                                    <a title="">Customer name
+                                        <span class="pull-right">{{viewData.customername}}</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a title="">feedback
+                                        <span class="pull-right">{{viewData.feedback}}</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a title="">Created time
+                                        <span class="pull-right">{{viewData.createdTime | myDate}}</span>
+                                    </a>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button class="btn btn-default" type="button" data-dismiss="modal">Close</button>
-    
-                </div>
             </div>
-    
+            <div class="modal-footer">
+                <button class="btn btn-default" type="button" data-dismiss="modal">Close</button>
+
+            </div>
         </div>
+
     </div>
-    
-    <div id="editmodel" class="modal fade" tabindex="-1" role="dialog" data-keyboard="false" data-backdrop="static">
-        <div class="modal-dialog">
-    
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close" ng-click="clear()">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                    <h5 class="modal-title" id="exampleModalLabel">Edit Feedback Details</h5>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <!-- Category -->
-                            <div class="single category">
-                                    <form name="userForm" novalidate>
-                                            <div class="form-group">
-                                                <div class="form-row">
-                                                    <div class="form-group" ng-class="{ 'has-error' : !userForm.customername.$valid && (userForm.customername.$dirty || userForm.$submitted),'has-success' : userForm.customername.$valid && (userForm.customername.$dirty || submitted)}">
-                                                        <input type="text" name="customername" class="form-control" ng-model="booking.customername" placeholder="Customer name" ng-required="true">
-                                                        <p ng-show="userForm.customername.$error.required && (userForm.customername.$dirty || userForm.$submitted)" class="help-block">Customer name is required.</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        
-                                            <div class="form-group">
-                                                <div class="form-row" ng-class="{ 'has-error' : !userForm.feedback.$valid && (userForm.feedback.$dirty || userForm.$submitted),'has-success' : userForm.feedback.$valid && (userForm.feedback.$dirty || submitted)}">
-                                                    <textarea class="form-control" rows="5" name="feedback" class="form-control" ng-model="booking.feedback" placeholder="Your feedback"
-                                                        ng-required="true"></textarea>
-                                                    <p ng-show="userForm.feedback.$error.required && (userForm.feedback.$dirty || userForm.$submitted)" class="help-block">feedback is required.</p>
-                                                </div>
-                                            </div>
-                        
-                                            <div class="clearfix">&nbsp;</div>
-                        
-                                            <button type="submit" class="btn btn-primary" ng-click="updateEvent(userForm)">Update Customer</button>
-                        
-                        
-                                        </form>
-                            </div>
+</div>
+
+<div id="editmodel" class="modal fade" tabindex="-1" role="dialog" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close" ng-click="clear()">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <h5 class="modal-title" id="exampleModalLabel">Edit Feedback Details</h5>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <!-- Category -->
+                        <div class="single category">
+                            <form name="userForm" novalidate>
+                                <div class="form-group">
+                                    <div class="form-row">
+                                        <div class="form-group" ng-class="{ 'has-error' : !userForm.customername.$valid && (userForm.customername.$dirty || userForm.$submitted),'has-success' : userForm.customername.$valid && (userForm.customername.$dirty || submitted)}">
+                                            <input type="text" name="customername" class="form-control" ng-model="booking.customername" placeholder="Customer name" ng-required="true">
+                                            <p ng-show="userForm.customername.$error.required && (userForm.customername.$dirty || userForm.$submitted)" class="help-block">Customer name is required.</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="form-row" ng-class="{ 'has-error' : !userForm.feedback.$valid && (userForm.feedback.$dirty || userForm.$submitted),'has-success' : userForm.feedback.$valid && (userForm.feedback.$dirty || submitted)}">
+                                        <textarea class="form-control" rows="5" name="feedback" class="form-control" ng-model="booking.feedback" placeholder="Your feedback"
+                                            ng-required="true"></textarea>
+                                        <p ng-show="userForm.feedback.$error.required && (userForm.feedback.$dirty || userForm.$submitted)" class="help-block">feedback is required.</p>
+                                    </div>
+                                </div>
+
+                                <div class="clearfix">&nbsp;</div>
+
+                                <button type="submit" class="btn btn-primary" ng-click="updateEvent(userForm)">Update Customer</button>
+
+
+                            </form>
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button class="btn btn-default" type="button" data-dismiss="modal" ng-click="clear()">Close</button>
-    
-                </div>
             </div>
-    
+            <div class="modal-footer">
+                <button class="btn btn-default" type="button" data-dismiss="modal" ng-click="clear()">Close</button>
+
+            </div>
         </div>
+
     </div>
+</div>

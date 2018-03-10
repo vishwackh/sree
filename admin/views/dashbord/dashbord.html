@@ -16,7 +16,10 @@
             <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-user"></i> Admin <b class="caret"></b></a>
                     <ul class="dropdown-menu">
-                        <li class="divider"></li>
+                            <li>
+                                    <a href ui-sref="dashbord.resetpassword"><i class="fa fa-fw fa-repeat"></i> Reset Password</a>
+                                </li>                        
+                        <li class="divider"></li> 
                         <li>
                             <a href ng-click="logout()"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
                         </li>
@@ -35,7 +38,7 @@
             <li data-toggle="tooltip" data-placement="right" title="Inquiry" ng-class="{active:$state.includes('dashbord.inquiry')}">
                 <a ui-sref="dashbord.inquiry">
                     <i class="fa fa-fw fa-sitemap"></i>
-                    <span>Inquiry</span>
+                    <span>Enquiry</span>
                 </a>
             </li>
             <li data-toggle="tooltip" data-placement="right" title="BookingDetails" ng-class="{active:$state.includes('dashbord.BookingDetails')}">

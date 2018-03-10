@@ -26,7 +26,7 @@
 </head>
 
 <body>
-    <toaster-container toaster-options="{'close-button':false, 'time-out':{ 'toast-warning': 2000, 'toast-error': 0 } }"></toaster-container>   
+    <toaster-container toaster-options="{'close-button':false,'time-out': 5000,'preventDuplicates': true,'limit':1,'preventOpenDuplicates': true }"></toaster-container>   
     <div id="wrapper">
     <ui-view></ui-view>
 <!-- <footer class="sticky-footer">

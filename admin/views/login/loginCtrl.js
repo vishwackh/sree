@@ -11,8 +11,12 @@
     function loginCtrl($scope, $http, $rootScope, localStorageService, toaster, $state) {
 
         $rootScope.userinfo = [];
+        $scope.reset={
+            'currentpassword':'',
+            'newpassword':''
+        }
         $scope.loginfun = function () {
-            console.log("scope users==>",$scope.user);
+            console.log("scope users==>", $scope.user);
             $scope.submitted = true;
             if ($scope.login.$valid) {
                 $http.post($rootScope.ApiUrl + 'adminlogin', $scope.user).then(function (data) {
@@ -26,14 +30,11 @@
                         localStorageService.remove('authorizationData');
                         localStorageService.set('authorizationData', {
                             'token': data.data.token,
-                            'userName': $rootScope.userinfo.userName,
-                            'email': $rootScope.userinfo.email,
-                            'subscribe': $rootScope.userinfo.subscribe,
-                            'active': $rootScope.userinfo.active
+                            'userName': $scope.user.userName
                         });
 
                         $state.go('dashbord.home');
-                        
+
                     } else {
                         console.log("not login");
                         toaster.pop('error', "Please check your UserName and Password", "");
@@ -43,5 +44,21 @@
                 toaster.pop('error', 'Provide Correct Email Id & Password', "");
             }
         };
+        $scope.resetPass = function (userForm) {
+            var authData = localStorageService.get('authorizationData');
+            var data={
+                'username': authData.userName
+            }
+            data = _.extend(data, $scope.reset);
+            if (userForm.$valid) {
+                $http.post($rootScope.ApiUrl + 'resetPassword', data).then(function (data) {
+                    if (data) {
+                        localStorageService.remove('authorizationData');                    
+                        toaster.pop('success', "Success", "Password updated successfully.");
+                        $state.go('Login'); 
+                    }
+                });
+            }
+        }
     }
 })();

@@ -55,7 +55,7 @@
                     <tbody>
                         <tr ng-repeat="cat in cancelDetails.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))">
                             <td>{{((currentPage * itemsPerPage) - itemsPerPage) + ($index+1)}}</td>
-                            <td>{{cat.eventdate}}</td>
+                            <td>{{cat.eventdate | myDate}}</td>
                             <td>{{cat.booking_Id}}</td>
                             <td>{{cat.paidamount}}</td>
                             <td>
@@ -70,8 +70,8 @@
                                    {{cat.refundAmount}}
                                </span>
                             </td>
-                            <td>{{cat.createdTime |timeago}}</td>
-                            <td>{{cat.modifiedTime |timeago}}</td>
+                            <td>{{cat.createdTime | myDate}}</td>
+                            <td>{{cat.modifiedTime | myDate}}</td>
                         </tr>
                     </tbody>
                 </table>

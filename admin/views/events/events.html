@@ -52,7 +52,7 @@
 
                     <div class="clearfix">&nbsp;</div>
 
-                    <button type="submit" class="btn btn-primary" ng-click="addEvent(userForm)">Add Event</button>
+                    <button type="submit" class="btn btn-primary" ng-click="userForm.$submitted=true;addEvent(userForm)">Add Event</button>
 
 
                 </form>
@@ -101,7 +101,7 @@
                         <tr ng-repeat="cat in eventDataList.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))">
                             <td>{{((currentPage * itemsPerPage) - itemsPerPage) + ($index+1)}}</td>
                             <td>{{cat.eventname}}</td>
-                            <td>{{cat.eventdate}}</td>
+                            <td>{{cat.eventdate | myDate}}</td>
                             <td>{{cat.description }}</td>
                             <td>
                                 <a class="btn btn-success" ng-click="view(cat)">
@@ -182,7 +182,7 @@
                                 </li>
                                 <li>
                                     <a title="">Event date
-                                        <span class="pull-right">{{viewData.eventdate | date:'MM/dd/yyyy' }}</span>
+                                        <span class="pull-right">{{viewData.eventdate | myDate }}</span>
                                     </a>
                                 </li>
                                 <li>
@@ -192,12 +192,12 @@
                                 </li>
                                 <li>
                                         <a title="">Created time
-                                            <span class="pull-right">{{viewData.createdTime |timeago}}</span>
+                                            <span class="pull-right">{{viewData.createdTime | myDate}}</span>
                                         </a>
                                     </li>                                
                                 <li>
                                     <a title="">Modified time
-                                        <span class="pull-right">{{viewData.modifiedTime |timeago}}</span>
+                                        <span class="pull-right">{{viewData.modifiedTime | myDate}}</span>
                                     </a>
                                 </li>
                             </ul>
@@ -230,17 +230,17 @@
                     <div class="col-sm-12">
                         <!-- Category -->
                         <div class="single category">
-                                <form name="userForm" novalidate>
+                                <form name="userForm1" novalidate>
                                         <div class="form-group">
                                             <div class="form-row">
-                                                <div class="form-group" ng-class="{ 'has-error' : !userForm.eventname.$valid && (userForm.eventname.$dirty || userForm.$submitted),'has-success' : userForm.eventname.$valid && (userForm.eventname.$dirty || submitted)}">
+                                                <div class="form-group" ng-class="{ 'has-error' : !userForm1.eventname.$valid && (userForm1.eventname.$dirty || userForm1.$submitted),'has-success' : userForm1.eventname.$valid && (userForm1.eventname.$dirty || submitted)}">
                                                     <input type="text" name="eventname" class="form-control" ng-model="booking.eventname" placeholder="Customer name" ng-required="true">
-                                                    <p ng-show="userForm.eventname.$error.required && (userForm.eventname.$dirty || userForm.$submitted)" class="help-block">Event name is required.</p>
+                                                    <p ng-show="userForm1.eventname.$error.required && (userForm1.eventname.$dirty || userForm1.$submitted)" class="help-block">Event name is required.</p>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <p class="input-group" ng-class="{ 'has-error' : !userForm.eventdate.$valid && (userForm.eventdate.$dirty || userForm.$submitted),'has-success' : userForm.eventdate.$valid && (userForm.eventdate.$dirty || submitted)}">
+                                            <p class="input-group" ng-class="{ 'has-error' : !userForm1.eventdate.$valid && (userForm1.eventdate.$dirty || userForm1.$submitted),'has-success' : userForm1.eventdate.$valid && (userForm1.eventdate.$dirty || submitted)}">
                                                 <input type="text" class="form-control" uib-datepicker-popup="yyyy/MM/dd" name="eventdate" ng-model="booking.eventdate" is-open="popup1.opened"
                                                     datepicker-options="dateOptions" ng-required="true" close-text="Close" placeholder="Bride DOB"
                                                     alt-input-formats="altInputFormats" readonly/>
@@ -249,22 +249,22 @@
                                                         <i class="glyphicon glyphicon-calendar"></i>
                                                     </button>
                                                 </span>
-                                                <p ng-show="userForm.eventdate.$error.required && (userForm.eventdate.$dirty || userForm.$submitted)" class="help-block">Event date is required.</p>
+                                                <p ng-show="userForm1.eventdate.$error.required && (userForm1.eventdate.$dirty || userForm1.$submitted)" class="help-block">Event date is required.</p>
                                             </p>
                                         </div>
                     
                     
                                         <div class="form-group">
-                                            <div class="form-row" ng-class="{ 'has-error' : !userForm.description.$valid && (userForm.description.$dirty || userForm.$submitted),'has-success' : userForm.description.$valid && (userForm.description.$dirty || submitted)}">
+                                            <div class="form-row" ng-class="{ 'has-error' : !userForm1.description.$valid && (userForm1.description.$dirty || userForm1.$submitted),'has-success' : userForm1.description.$valid && (userForm1.description.$dirty || submitted)}">
                                                 <textarea class="form-control" rows="5" name="description" class="form-control" ng-model="booking.description" placeholder="Your description"
                                                     ng-required="true"></textarea>
-                                                <p ng-show="userForm.description.$error.required && (userForm.description.$dirty || userForm.$submitted)" class="help-block">description is required.</p>
+                                                <p ng-show="userForm1.description.$error.required && (userForm1.description.$dirty || userForm1.$submitted)" class="help-block">description is required.</p>
                                             </div>
                                         </div>
                     
                                         <div class="clearfix">&nbsp;</div>
                     
-                                        <button type="submit" class="btn btn-primary" ng-click="updateEvent(userForm)">Update Event</button>
+                                        <button type="submit" class="btn btn-primary" ng-click="userForm1.$submitted=true;updateEvent(userForm1)">Update Event</button>
                     
                     
                                     </form>

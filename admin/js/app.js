@@ -116,6 +116,11 @@
                     });
                 }
             };
+        }).filter('myDate', function($filter) {    
+            var angularDateFilter = $filter('date');
+            return function(theDate) {
+               return angularDateFilter(new Date(theDate), 'yyyy-MM-dd');
+            }
         })
         .run(function ($rootScope) {
         //  $rootScope.ApiUrl = "http://svarks.in/api/";

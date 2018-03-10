@@ -29,6 +29,7 @@
                 'addOnServices':'',
                 'bookingType':'1'	   
             };
+            $scope.enquiryData();
         }
         $scope.clear=function(){
             clearForm();
@@ -76,8 +77,8 @@
           $scope.addEnquiry =function(userForm){
             $scope.submitted = true;
             if (userForm.$valid) {
-                $scope.booking.brideDOB=angular.copy($filter('date')($scope.booking.brideDOB, "yyyy-MM-dd"));   
-                $scope.booking.groomDOB=angular.copy($filter('date')($scope.booking.groomDOB, "yyyy-MM-dd"));
+                $scope.booking.brideDOB=$scope.booking.brideDOB?angular.copy($filter('date')($scope.booking.brideDOB, "yyyy-MM-dd")):null;   
+                $scope.booking.groomDOB=$scope.booking.groomDOB?angular.copy($filter('date')($scope.booking.groomDOB, "yyyy-MM-dd")):null;
                 $scope.booking.eventdate=angular.copy($filter('date')($scope.booking.eventdate, "yyyy-MM-dd"));           
                 $scope.booking.eventenddate=angular.copy($filter('date')($scope.booking.eventenddate, "yyyy-MM-dd")); 
                 $http.post($rootScope.ApiUrl + 'booking', $scope.booking).then(function (data) {       
@@ -92,8 +93,8 @@
           };   
           $scope.updatemodal=function(x){
             $scope.booking = x;
-            $scope.booking.brideDOB=angular.copy(new Date(x.brideDOB));   
-            $scope.booking.groomDOB=angular.copy(new Date(x.groomDOB));
+            $scope.booking.brideDOB=x.brideDOB?angular.copy(new Date(x.brideDOB)):'';   
+            $scope.booking.groomDOB=x.groomDOB?angular.copy(new Date(x.groomDOB)):'';
             $scope.booking.eventdate=angular.copy(new Date(x.eventdate));           
             $scope.booking.eventenddate=angular.copy(new Date(x.eventenddate));             
             $('#editmodel').modal('show');             
@@ -103,18 +104,18 @@
             $scope.delInquiry=x;
             $('#deletemodel').modal('show'); 
           }
-          $scope.updateInquiry = function(userForm){
+          $scope.updateInquiry = function(userForm1){
             $scope.submitted = true;
-            if (userForm.$valid) {
-                $scope.booking.brideDOB=angular.copy($filter('date')($scope.booking.brideDOB, "yyyy-MM-dd"));   
-                $scope.booking.groomDOB=angular.copy($filter('date')($scope.booking.groomDOB, "yyyy-MM-dd"));
+            if (userForm1.$valid) {
+                $scope.booking.brideDOB= $scope.booking.brideDOB?angular.copy($filter('date')($scope.booking.brideDOB, "yyyy-MM-dd")):null;   
+                $scope.booking.groomDOB=$scope.booking.groomDOB?angular.copy($filter('date')($scope.booking.groomDOB, "yyyy-MM-dd")):null;
                 $scope.booking.eventdate=angular.copy($filter('date')($scope.booking.eventdate, "yyyy-MM-dd"));           
                 $scope.booking.eventenddate=angular.copy($filter('date')($scope.booking.eventenddate, "yyyy-MM-dd")); 
                 $http.post($rootScope.ApiUrl + 'updateBooking', $scope.booking).then(function (data) {       
                     if (data) {
                         toaster.pop('success', "Success", "Inquiry Updated successfully.");
                         clearForm();
-                        userForm.$setPristine();
+                        userForm1.$setPristine();
                         $scope.enquiryData(); 
                     }
                     $('#editmodel').modal('hide'); 
@@ -163,6 +164,6 @@
             });
         };
         clearForm();
-        $scope.enquiryData();                
+                  
     }
 })();

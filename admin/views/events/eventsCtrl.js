@@ -62,15 +62,15 @@
             $scope.delInquiry = x;
             $('#deletemodel').modal('show');
         }
-        $scope.updateEvent = function (userForm) {
+        $scope.updateEvent = function (userForm11) {
             $scope.submitted = true;
-            if (userForm.$valid) {
+            if (userForm11.$valid) {
                 $scope.booking.eventdate = angular.copy($filter('date')($scope.booking.eventdate, "yyyy-MM-dd"));               
                 $http.post($rootScope.ApiUrl + 'updateEvent', $scope.booking).then(function (data) {
                     if (data) {
                         toaster.pop('success', "Success", "Event Updated successfully.");
                         clearForm();
-                        userForm.$setPristine();
+                        userForm1.$setPristine();
                         $scope.eventData();
                     }
                     $('#editmodel').modal('hide');

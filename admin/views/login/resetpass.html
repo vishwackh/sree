@@ -1,0 +1,26 @@
+<div class="row">
+    <div class="col-sm-offset-3 col-sm-4">
+        <div class="loginmodal-container">
+            <h1>Reset Your Account Password</h1>
+            <br>
+            <form name="userForm" role="form" novalidate>
+                <div class="form-group" ng-class="{ 'has-error' : !userForm.currentpassword.$valid && (userForm.currentpassword.$dirty || userForm.$submitted),'has-success' : userForm.customername.$valid && (userForm.customername.$dirty || submitted)}">
+                    <label for="currentpassword">Current Password</label>
+                    <input type="password" name="currentpassword" class="form-control input-md" id="currentpassword" ng-model="reset.currentpassword" placeholder="current password"
+                        required>
+                    <p ng-show="userForm.currentpassword.$error.required && (userForm.currentpassword.$dirty || userForm.$submitted)" class="help-block">Current password is required</p>
+                </div>
+                <div class="form-group" ng-class="{ 'has-error' : !userForm.newpassword.$valid && (userForm.newpassword.$dirty || userForm.$submitted),'has-success' : userForm.customername.$valid && (userForm.customername.$dirty || submitted)}">
+                    <label for="newpassword">New Password</label>
+                    <input type="password" name="newpassword" class="form-control input-md" minlength="6" maxlength="40" maxid="newpassword" ng-model="reset.newpassword" placeholder="new password"
+                        required>
+                    <p ng-show="userForm.newpassword.$error.required && (userForm.newpassword.$dirty || userForm.$submitted)" class="help-block">New Password is required</p>
+                    <p ng-show="userForm.newpassword.$error.minlength && (userForm.newpassword.$dirty || userForm.$submitted)" class="help-block">Minmum length should 6 charcters.</p>
+                </div>
+                <button ng-click="userForm.$submitted=true;resetPass(userForm)" class="btn btn-primary btn-block btn-md">
+                    Reset Password
+                </button>
+            </form>
+        </div>
+    </div>
+</div>

@@ -40,3 +40,44 @@ if( $QryOutput['count']  == 1 ){
 echo json_encode($result);
 });
  
+$app->post('/resetPassword', function ($request, $response, $args) {
+    $result =  new stdClass();
+    $param =  $request->getParsedBody();
+    $username = $param['username'];
+   $currentpassword = $param['currentpassword'];
+   $newpassword = $param['newpassword'];
+   
+    $Database=new Database();
+    $Database->beginTransaction();
+    $CurTime = time();
+   $Database->query("SELECT * FROM login where userName=:userName and password=:password");
+   
+   $DBParameters["userName"]=$username;
+   $DBParameters["password"]=$currentpassword;
+   
+   $Database->bindParameters($DBParameters);
+   $Database->execute();
+   $ExeceptionDetails = $Database->getExceptionDetails();
+   $QryOutput=$Database->resultset();
+   if(!empty($QryOutput)){
+   $Updateqry="UPDATE login set password=:password,updatedDate=FROM_UNIXTIME(:ModifiedTime)
+   where userName=:userName";
+    $UpdateParams= array('password'=>$newpassword,'userName'=>$username,'ModifiedTime'=>$CurTime);
+    
+    $ExecutionDetails = $Database->executeQuery($Updateqry, $UpdateParams);
+    $ExecutionDetails['query']    = $Database->getQRY($Updateqry, $UpdateParams);
+    
+    if($ExecutionDetails['stat']){
+    // $Errors["Dialogue"]=2;
+    //SSdecho $ExecutionDetails;
+    echo "<pre>";
+    print_r($ExecutionDetails);echo "</pre>";
+    //GOTO ErrorInside;
+    echo json_encode("updation failure..");
+    }
+    $Database->endTransaction();
+   
+    echo json_encode("password updated successfully..");
+
+   }
+});

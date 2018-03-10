@@ -11,7 +11,12 @@
                     url: '/Login',
                     templateUrl: 'views/login/login.html',
                     controller: 'loginCtrl'
-                })               
+                })     
+                .state('dashbord.resetpassword', {
+                    url: '/resetpassword',
+                    templateUrl: 'views/login/resetpass.html',
+                    controller: 'loginCtrl'
+                })                           
                 .state('dashbord', {
                     url: '/dashbord',
                     templateUrl: 'views/dashbord/dashbord.html',

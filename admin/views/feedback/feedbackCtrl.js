@@ -15,6 +15,8 @@
                 'feedback': ''
             };
         }
+        $scope.rating=[1,2,3,4,5];
+        $scope.categories=['one','two','three','four'];
         $scope.clear = function () {
             clearForm();
         }
@@ -30,7 +32,26 @@
                 }
             });
         };
+        $scope.list=[];
+        $scope.cat={
+            r:'',
+            c:'' 
+        }
+        $scope.revert=function(index,data){
+            $scope.categories.push(data);
+            $scope.list.splice(index,1)
+        }
+$scope.addrating=function(userForm1){
+    $scope.submitted = true;
+    if (userForm1.$valid) {  
+        $scope.list.push({'rating':$scope.cat.r,'category': $scope.cat.c});       
+        $scope.categories.splice($scope.categories.indexOf($scope.cat.c),1);
+        $scope.cat.r='';
+        $scope.cat.c='';
+        userForm1.$setPristine();
 
+    }
+}
         $scope.addEvent = function (userForm) {
             $scope.submitted = true;
             if (userForm.$valid) {               

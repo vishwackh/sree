@@ -54,7 +54,7 @@
                         <tr ng-repeat="cat in Inquiry.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))" ng-if="cat.isBookingCancel !=1">
                             <td>{{((currentPage * itemsPerPage) - itemsPerPage) + ($index+1)}}</td>
                             <td>{{cat.customername}}</td>
-                            <td>{{cat.eventdate}}</td>
+                            <td>{{cat.eventdate | myDate}}</td>
                             <td>{{cat.phonenumber }}</td>
                             <td>{{cat.totalamount }}</td>
                             <td>
@@ -112,7 +112,7 @@
                                         <td>{{cat.paymentType}}</td>
                                         <td>{{cat.chequeno?cat.chequeno:'N/A'}}</td>
                                         <td>{{cat.balanceamount }}</td>
-                                        <td>{{cat.createdTime}}</td>
+                                        <td>{{cat.createdTime | myDate}}</td>
 
                                     </tr>
                                     <tfoot>
