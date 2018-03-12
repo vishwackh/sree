@@ -20,7 +20,7 @@
             <div class="panel-body">
                 <form name="userForm" novalidate>
 
-                    <div class="row">
+                    <div class="row col-md-12">
                         <div class="form-group">
                             <div class="form-row">
                                 <div class="form-group" ng-class="{ 'has-error' : !userForm.customername.$valid && (userForm.customername.$dirty || userForm.$submitted),'has-success' : userForm.customername.$valid && (userForm.customername.$dirty || submitted)}">
@@ -31,7 +31,7 @@
                         </div>
                     </div>
 
-                    <div class="row">
+                    <div class="row col-md-12">
                         <div class="form-group">
                             <div class="form-row" ng-class="{ 'has-error' : !userForm.feedback.$valid && (userForm.feedback.$dirty || userForm.$submitted),'has-success' : userForm.feedback.$valid && (userForm.feedback.$dirty || submitted)}">
                                 <textarea class="form-control" rows="5" name="feedback" class="form-control" ng-model="booking.feedback" placeholder="Your feedback"
@@ -40,24 +40,22 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-12">
-  
-<ul ng-if="list" class="list-group">
-    <li ng-repeat="l in list" class="list-group-item">
-        {{l.category}}  
-        <div class="btn pull-right" style="padding-top: 0;" ng-click="revert($index,l.category)"><i class="fa fa-times-circle-o" aria-hidden="true"></i></div>
-        <div class="material-switch pull-right ">{{l.rating}}</div>
-
-    </li>
-</ul>
-                        </div>
+                    <div class="row col-md-12">                         
+                            <ul ng-if="list" class="list-group">
+                                <li ng-repeat="l in list" class="list-group-item">
+                                    <b>{{l.category}}</b>
+                                    <div class="btn pull-right" style="padding-top: 0;" ng-click="revert($index,l.category)">
+                                        <i class="fa fa-times-circle-o" style="color: red;" aria-hidden="true"></i>
+                                    </div>
+                                    <div class="material-switch pull-right" style="padding-right: 20px;"><b>{{l.rating}}</b></div>
+                                </li>
+                            </ul>                        
                     </div>
                     <div class="row" ng-if="categories.length>0">
                         <ng-form name="userForm1" novalidate>
                             <div class="col-md-5">
                                 <div class="form-row" ng-class="{ 'has-error' : !userForm1.selCategory.$valid && (userForm1.selCategory.$dirty || userForm1.$submitted),'has-success' : userForm1.address.$valid && (userForm1.address.$dirty || submitted)}">
-                                    <select ng-model="cat.c" name="selCategory" class="form-control" ng-options="x for x in categories" ng-required="true"> 
+                                    <select ng-model="cat.c" name="selCategory" class="form-control" ng-options="x for x in categories" ng-required="true">
                                         <option value="">Select Category</option>
                                     </select>
                                     <p ng-show="userForm1.selCategory.$error.required && (userForm1.selCategory.$dirty || userForm1.$submitted)" class="help-block">Select Catogory.</p>

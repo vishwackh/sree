@@ -5,10 +5,10 @@
         .module('emsAdmin')
         .controller('dashbordCtrl', dashbordCtrl);
 
-    dashbordCtrl.$inject = ['$scope', '$http', '$rootScope', 'localStorageService', 'toaster', '$state'];
+    dashbordCtrl.$inject = ['$scope', '$http', '$rootScope', 'localStorageService', 'toaster', '$state','$filter'];
 
     /* @ngInject */
-    function dashbordCtrl($scope, $http, $rootScope, localStorageService, toaster, $state) {
+    function dashbordCtrl($scope, $http, $rootScope, localStorageService, toaster, $state,$filter) {
         $scope.logout = function () {
             localStorageService.remove('authorizationData');
             $rootScope.userinfo = [];
@@ -32,9 +32,21 @@
         }
         $scope.highlightDays = [];
         $scope.selectedData=undefined;
-        $scope.oneDaySelectionOnly = function (event, date) {
+        $scope.index=0;
+        $scope.oneDaySelectionOnly = function (event, date) { 
+            $scope.index=0;           
             $scope.selectedDays3.length = 0;
-            $scope.selectedData =angular.copy(_.where($scope.Inquiry, {booking_Id: date.title}));           
+            $scope.selDate=angular.copy($filter('date')(new Date(date.date), "yyyy-MM-dd"));
+            $scope.sortedData =angular.copy(_.where($scope.Inquiry, {'eventdate': $scope.selDate+' 00:00:00'}));   
+            $scope.selectedData=angular.copy($scope.sortedData[0]);        
+        }
+        $scope.clickNext=function(){
+            $scope.index++;
+            $scope.selectedData=angular.copy($scope.sortedData[$scope.index]); 
+        }
+        $scope.clickPrev=function(){
+            $scope.index--;
+            $scope.selectedData=angular.copy($scope.sortedData[$scope.index]);
         }
         $scope.bookingData = function () {
             $http.get($rootScope.ApiUrl + 'getDashboardData').then(function (data) {

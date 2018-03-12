@@ -27,11 +27,23 @@
                 
     </div>
     <div class="col-md-6">
+<div ng-if="selectedData">
 
-        <div class="panel panel-primary" ng-if="selectedData[0]">
+<button class="btn btn-primary btn-block" type="button">
+        You have <span class="badge">{{sortedData.length}}</span> events on {{selDate | myDate}} 
+      </button>
+</div>
+<div class="clearfix">&nbsp;</div>
+        <div class="panel panel-primary" ng-if="selectedData">
             <!-- Default panel contents -->
             <div class="panel-heading">
-                <b>Customer Name : {{selectedData[0].customername}}</b>
+                    <nav aria-label="event dates">
+                            <ul class="pager" style="margin:0px">
+                              <li class="previous"><a href="" ng-click="clickPrev()" ng-hide="index == 0"><span aria-hidden="true">&larr;</span> </a></li>
+                              <b>Customer Name : {{selectedData.customername}}</b>
+                              <li class="next"><a href="" ng-click="clickNext()" ng-hide="index == sortedData.length - 1"> <span aria-hidden="true">&rarr;</span></a></li>
+                            </ul>
+                          </nav>                
             </div>
 
             <!-- List group -->
@@ -39,50 +51,50 @@
                 <li class="list-group-item">
                     Event Name
                     <div class="material-switch pull-right">
-                        {{selectedData[0].eventname}}
+                        {{selectedData.eventname}}
                     </div>
                 </li>
                 <li class="list-group-item">
                     Event Date
                     <div class="material-switch pull-right">
-                        {{selectedData[0].eventdate | myDate}}
+                        {{selectedData.eventdate | myDate}}
                     </div>
                 </li>
                 <li class="list-group-item">
                     Event End Date
                     <div class="material-switch pull-right">
-                        {{selectedData[0].eventenddate | myDate}}
+                        {{selectedData.eventenddate | myDate}}
                     </div>
                 </li>
                 <li class="list-group-item">
                     Phone Number
                     <div class="material-switch pull-right">
-                        {{selectedData[0].phonenumber}}
+                        {{selectedData.phonenumber}}
                     </div>
                 </li>
                 <li class="list-group-item">
                     Email Id
                     <div class="material-switch pull-right">
-                        {{selectedData[0].emailid}}
+                        {{selectedData.emailid}}
                     </div>
                 </li>
                 <li class="list-group-item">
                     Address
                     <div class="material-switch pull-right">
-                        {{selectedData[0].address}}
+                        {{selectedData.address}}
                     </div>
                 </li>
                 <li class="list-group-item">
                     PAN/Adharno
                     <div class="material-switch pull-right">
-                        {{selectedData[0].panadharno}}
+                        {{selectedData.panadharno}}
                     </div>
                 </li>
 
                 <li class="list-group-item">
                     Total Amount
                     <div class="material-switch pull-right">
-                        {{selectedData[0].totalamount}}
+                        {{selectedData.totalamount}}
                     </div>
                 </li>
             </ul>

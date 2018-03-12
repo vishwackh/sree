@@ -54,8 +54,11 @@ $scope.addrating=function(userForm1){
 }
         $scope.addEvent = function (userForm) {
             $scope.submitted = true;
+            var data={};
+         data=_.extend(data,$scope.booking);
+         data=_.extend(data,{'rating':$scope.list});
             if (userForm.$valid) {               
-                $http.post($rootScope.ApiUrl + 'custFeedback', $scope.booking).then(function (data) {
+                $http.post($rootScope.ApiUrl + 'custFeedback', data).then(function (data) {
                     if (data) {
                         toaster.pop('success', "Success", "Event addded successfully.");
                         clearForm();
