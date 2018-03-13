@@ -47,7 +47,13 @@
             </div>
 
             <!-- List group -->
-            <ul class="list-group">
+            <ul class="list-group"> 
+                    <li class="list-group-item text-center">
+                            <span ng-if="selectedData.bookingType == 1">Enquiry</span> 
+                            <span ng-if="selectedData.bookingType == 2">Booking</span> 
+                            <span class="btn btn-warning" ng-if="selectedData.bookingType == 1"><i class="glyphicon glyphicon-ok"></i></span>
+                            <span class="btn btn-success" ng-if="selectedData.bookingType == 2"><i class="glyphicon glyphicon-ok"></i></span>
+                        </li>                
                 <li class="list-group-item">
                     Event Name
                     <div class="material-switch pull-right">
