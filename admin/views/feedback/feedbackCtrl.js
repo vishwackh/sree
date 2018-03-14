@@ -40,7 +40,7 @@
         $scope.revert=function(index,data){
             $scope.categories.push(data);
             $scope.list.splice(index,1)
-        }
+        };
 $scope.addrating=function(userForm1){
     $scope.submitted = true;
     if (userForm1.$valid) {  
@@ -57,6 +57,7 @@ $scope.addrating=function(userForm1){
             var data={};
          data=_.extend(data,$scope.booking);
          data=_.extend(data,{'rating':$scope.list});
+         console.log("request data===>",data);
             if (userForm.$valid) {               
                 $http.post($rootScope.ApiUrl + 'custFeedback', data).then(function (data) {
                     if (data) {
@@ -120,6 +121,15 @@ $scope.addrating=function(userForm1){
         }
         $scope.view = function (x) {
             $scope.viewData = x;
+            var rstData = {
+                'feedback_Id': x.feedback_Id
+            };
+            $http.get($rootScope.ApiUrl + 'getCustRating', rstData).then(function (data) {
+                console.log("response data==>",data);
+                if (data) {
+                    $scope.viewData1=angular.copy(data.data);
+                }
+            });            
             $('#viewmodel').modal('show');
         }
 

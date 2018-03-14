@@ -129,6 +129,7 @@ $app->post('/custFeedback', function ($request, $response, $args) {
     
     $customername = $param['customername'];
     $feedback = $param['feedback'];
+    $rating = $param['rating'];
     
     $CurTime = time();
     
@@ -153,6 +154,28 @@ $app->post('/custFeedback', function ($request, $response, $args) {
          //GOTO ErrorInside;
         echo json_encode("Insertion failure..");
     }
+    $feedback_Id=$Database->lastInsertId();
+   foreach($rating as $key=>$value){
+        
+    $Insrtqry="INSERT INTO categoryFeedback (category,rating,feedback_Id,createdTime
+    ) VALUES (:category,:rating,:feedback_Id,FROM_UNIXTIME(:createdTime))"; 
+    $insertParams= array('category'=>$value['category'],'rating'=>$value['rating'],'feedback_Id'=>$feedback_Id,'createdTime'=>$CurTime);
+    
+    $ExecutionDetails = $Database->executeQuery($Insrtqry, $insertParams);
+    $ExecutionDetails['query']	= $Database->getQRY($Insrtqry, $insertParams);
+    
+    
+    if($ExecutionDetails['stat'])
+    {
+        // $Errors["Dialogue"]=2;
+        //SSdecho $ExecutionDetails;
+        echo "<pre>";
+        print_r($ExecutionDetails);echo "</pre>";
+         //GOTO ErrorInside;
+        echo json_encode("Insertion failure..");
+    }
+
+}
     $Database->endTransaction();
     
     echo json_encode("Feedback added successfully");
@@ -167,3 +190,26 @@ $app->post('/custFeedback', function ($request, $response, $args) {
     $QryOutput=$Database->resultset();
         echo json_encode($QryOutput);
     });
+    $app->get('/getCustRating', function ($request, $response, $args) {
+        $param =  $request->getParsedBody();
+    
+        $feedback_Id = $param['feedback_Id'];
+        echo "feedback_Id===>".$feedback_Id;
+        
+        $result =  new stdClass();
+        $Database=new Database();
+    $Database->query("SELECT * FROM categoryFeedback where feedback_Id=:feedback_Id");
+
+
+    $DBParameters["feedback_Id"]=$feedback_Id;
+    $Database->bindParameters($DBParameters);
+    $Database->execute();
+    $ExeceptionDetails = $Database->getExceptionDetails();
+    $QryOutput=$Database->resultset();
+    echo "<pre>";
+    print_r($QryOutput); echo "</pre>";
+        echo json_encode($QryOutput);
+    });
+
+  
+    

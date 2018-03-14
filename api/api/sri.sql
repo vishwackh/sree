@@ -89,4 +89,13 @@ CREATE TABLE IF NOT EXISTS `eventFeedback` (
   `createdTime` datetime NOT NULL,
   PRIMARY KEY (`feedback_Id`)
 );
+CREATE TABLE IF NOT EXISTS `categoryFeedback` (
+  `category_Id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `feedback_Id` int(11) ,
+  `category` varchar(120) not null,
+  `rating` int(11),
+  `createdTime` datetime NOT NULL,
+  PRIMARY KEY (`category_Id`),
+   KEY(`category_Id`,`feedback_Id`)
+);
 
