@@ -124,7 +124,7 @@ $scope.addrating=function(userForm1){
             var rstData = {
                 'feedback_Id': x.feedback_Id
             };
-            $http.get($rootScope.ApiUrl + 'getCustRating', rstData).then(function (data) {
+            $http.post($rootScope.ApiUrl + 'getCustRating', rstData).then(function (data) {
                 console.log("response data==>",data);
                 if (data) {
                     $scope.viewData1=angular.copy(data.data);

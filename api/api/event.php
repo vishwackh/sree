@@ -190,11 +190,10 @@ $app->post('/custFeedback', function ($request, $response, $args) {
     $QryOutput=$Database->resultset();
         echo json_encode($QryOutput);
     });
-    $app->get('/getCustRating', function ($request, $response, $args) {
+    $app->post('/getCustRating', function ($request, $response, $args) {
         $param =  $request->getParsedBody();
     
         $feedback_Id = $param['feedback_Id'];
-        echo "feedback_Id===>".$feedback_Id;
         
         $result =  new stdClass();
         $Database=new Database();
@@ -206,8 +205,6 @@ $app->post('/custFeedback', function ($request, $response, $args) {
     $Database->execute();
     $ExeceptionDetails = $Database->getExceptionDetails();
     $QryOutput=$Database->resultset();
-    echo "<pre>";
-    print_r($QryOutput); echo "</pre>";
         echo json_encode($QryOutput);
     });
 
