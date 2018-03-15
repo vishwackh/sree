@@ -14,6 +14,11 @@
                 'customername': '',
                 'feedback': ''
             };
+            $scope.list=[];
+            $scope.cat={
+                r:'',
+                c:'' 
+            }
         }
         $scope.rating=[1,2,3,4,5];
         $scope.categories=['one','two','three','four'];
@@ -32,11 +37,7 @@
                 }
             });
         };
-        $scope.list=[];
-        $scope.cat={
-            r:'',
-            c:'' 
-        }
+
         $scope.revert=function(index,data){
             $scope.categories.push(data);
             $scope.list.splice(index,1)

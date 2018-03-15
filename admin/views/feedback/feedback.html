@@ -208,12 +208,21 @@
                                         <span class="pull-right">{{viewData.feedback}}</span>
                                     </a>
                                 </li>
-                                <li>
-                                    <a title="">Created time
-                                        <span class="pull-right">{{viewData.createdTime | myDate}}</span>
-                                    </a>
-                                </li>
                             </ul>
+                                    <hr>               
+                                <ul ng-if="viewData1" class="list-unstyled">
+                                    <li ng-repeat="l in viewData1">
+                                            <a title="">{{l.category}} &nbsp;&nbsp; Rated as
+                                                    <span class="pull-right">{{l.rating}}</span>
+                                                </a>                               
+                                    </li>
+                                    <li>
+                                            <a title="">Created Date
+                                                <span class="pull-right">{{viewData1[0].createdTime | myDate}}</span>
+                                            </a>
+                                        </li>                                    
+                                </ul>                        
+                                                  
                         </div>
                     </div>
                 </div>
